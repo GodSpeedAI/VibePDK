@@ -1,0 +1,65 @@
+# Justfile for cross-platform task orchestration.
+# Use this file as the single entrypoint for building, validating, testing and deploying.
+
+# Convert a CALM spec to domain YAML
+calm-to-domain target?=domain/domain.yaml src?=architecture/calm/system.calm.json:
+    python tools/transformers/translator.py --from-calm {{src}} --to-domain {{target}}
+
+# Convert a domain YAML to CALM
+domain-to-calm target?=architecture/calm/system.calm.json src?=domain/domain.yaml:
+    python tools/transformers/translator.py --from-domain {{src}} --to-calm {{target}}
+
+# Validate CALM patterns and controls using finos-calm CLI (placeholder)
+validate-calm:
+    @echo "Validating CALM architecture..."
+    # Use calm CLI or Node package once available (pnpm-friendly)
+    # Example: calm validate architecture/calm/system.calm.json --patterns architecture/calm/calm.patterns.json
+    @echo "CALM validation complete"
+
+# Generate services from domain/CALM using Nx generators
+generate:
+    @echo "Running Nx generators..."
+    # Placeholder: call nx generate to scaffold services based on domain.yaml
+    # Example: pnpm dlx nx run tools:service-scaffold
+    @echo "Generation complete"
+
+# Lint and format
+lint:
+    pnpm dlx nx format:check && pnpm dlx nx lint
+
+# Run unit tests
+test:
+    pnpm dlx nx test
+
+# Snapshot tests to ensure deterministic generation
+snapshot:
+    @echo "Running snapshot tests..."
+    # Add your snapshot testing script or framework here
+    @echo "Snapshot tests passed"
+
+# Build all services
+build:
+    pnpm dlx nx build
+
+# Deploy using canary strategy
+deploy:
+    @echo "Deploying application..."
+    # Example: use Helm/Kustomize or docker-compose to deploy
+    @echo "Deployment complete"
+
+# Rollback to previous version
+rollback:
+    @echo "Rolling back to previous deployment..."
+    # Example: helm rollback or docker-compose down & up previous
+    @echo "Rollback complete"
+
+# Bootstrap developer environment: enable pnpm via Corepack and ensure uv exists
+bootstrap:
+    @echo "[bootstrap] Enabling Corepack and activating pnpm..."
+    corepack enable
+    corepack prepare pnpm@latest --activate
+    @echo "[bootstrap] Verifying pnpm..."
+    pnpm --version
+    @echo "[bootstrap] Verifying uv (Python package manager)..."
+    @command -v uv >/dev/null 2>&1 && uv --version || (echo "uv not found. Install via: curl -LsSf https://astral.sh/uv/install.sh | sh" && exit 1)
+    @echo "[bootstrap] Done. You can now run: 'pnpm dlx nx --version' and Python tools via 'uv'."

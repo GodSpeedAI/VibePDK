@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "pnpm"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Setup pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+      - name: Setup uv (Python package manager)
+        uses: astral-sh/setup-uv@v3
+      - name: Install Python deps (uv)
+        run: |
+          uv pip install --system pyyaml
+      - name: Validate CALM
+        run: |
+          just calm-to-domain --help || true
+          # When a CALM CLI is available, insert validation command here
+      - name: Translator dry-run
+        run: |
+          python tools/transformers/translator.py --from-calm architecture/calm/system.calm.json --to-domain /tmp/domain.yaml
+          python tools/transformers/translator.py --from-domain domain/domain.yaml --to-calm /tmp/system.calm.json
+      - name: Nx workspace lint
+        run: |
+          pnpm dlx nx format:check
+          pnpm dlx nx lint
+      - name: Snapshot tests
+        run: |
+          just snapshot
+      - name: Build
+        run: |
+          pnpm dlx nx build

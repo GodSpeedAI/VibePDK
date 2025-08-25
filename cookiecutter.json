@@ -1,0 +1,6 @@
+{
+  "project_slug": "my-hexagon-app",
+  "author_name": "Your Name",
+  "python_version": "3.11",
+  "description": "A reversible, deterministic hexagonal architecture monorepo"
+}
