@@ -1,0 +1,26 @@
+{
+    "name": "vibepdk-repo-tools",
+    "private": true,
+    "version": "0.1.0",
+    "description": "Repo tooling and tests for VibePDK (template root)",
+    "license": "MIT",
+    "scripts": {
+        "test:node": "tsx tools/test/run_node_tests.ts",
+        "lint:md": "markdownlint \"**/*.md\" --config .markdownlint.json",
+        "prepare": "husky install"
+    },
+    "devDependencies": {
+        "@types/node": "^22.5.4",
+        "tsx": "^4.16.2",
+        "typescript": "^5.5.4",
+        "markdownlint-cli": "^0.36.0",
+        "markdownlint": "^0.36.0",
+        "husky": "^8.0.0",
+        "lint-staged": "^14.0.0"
+    },
+    "lint-staged": {
+        "**/*.md": [
+            "markdownlint --config .markdownlint.json"
+        ]
+    }
+}

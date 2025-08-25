@@ -1,6 +1,6 @@
 ---
 mode: 'agent'
-model: GPT-4o
+model: GPT-4.1
 tools: ['githubRepo', 'codebase']
 description: 'Analyse the performance characteristics of a code segment or component'
 ---

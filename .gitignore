@@ -1,0 +1,81 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# pnpm
+.pnpm/
+pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# Nx
+.nx/
+.nx/cache/
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+
+# Environment
+.env
+.env.*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Mac
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual envs and test cache
+.venv/
+venv/
+env/
+pip-wheel-metadata/
+.pytest_cache/
+
+# CI / local generated artifacts
+artifacts/
+reports/
+tmp/
+.cache/
+docs/generated/
+docs/build/
+
+
+# Generated / tooling
+node_modules/
+**/node_modules/
+
+# Husky
+.husky/
+
+# Markdownlint ignore
+.markdownlint.json
+.markdownlintignore
+
+# Temporary
+.tmp/
+
+# Ignore cookiecutter placeholders (if present)
+{{cookiecutter.project_slug}}/.envrc

@@ -8,18 +8,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      # Setup Volta (Node toolchain manager)
+      - name: Setup Volta
+        uses: volta-cli/action@v4
+      - name: Install Node & pnpm via Volta
+        run: |
+          volta install node@24
+          volta install pnpm@latest
+      - name: Resolve pnpm store path
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - name: Cache pnpm store
+        uses: actions/cache@v4
         with:
-          node-version: "18"
-          cache: "pnpm"
-      - uses: actions/setup-python@v4
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Setup pnpm via Corepack
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
+      - name: Install just (for task runner)
+        run: sudo apt-get update && sudo apt-get install -y just
+      - name: Install Node dependencies
+        run: pnpm install --frozen-lockfile
       - name: Setup uv (Python package manager)
         uses: astral-sh/setup-uv@v3
       - name: Install Python deps (uv)

@@ -10,5 +10,7 @@ The purpose of these instructions is to provide repository‑specific guidance t
 - When interacting with external services or tasks, require user confirmation before executing commands. Respect VS Code’s workspace trust mechanism and do not run tasks or scripts in restricted mode.
 - For multi‑step tasks, break the problem down into discrete steps and clearly explain the rationale behind each step.
 - Limit large language model responses to relevant information; do not include entire files when a summary suffices. Encourage token efficiency and performance‑conscious design.
+- Always follow best practices for code quality, including writing tests, adhering to style guides, and conducting code reviews.
+- Do not introduce technical debt and if you notice any, create a plan to address it.
 
 For more detailed guidelines, see the individual instruction files in `.github/instructions`.

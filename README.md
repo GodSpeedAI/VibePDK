@@ -5,7 +5,7 @@ Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 ## ✨ What this template provides
 
 - 🚦 Nx for monorepo orchestration
-- 🐍 `@nxlv/python` scaffolds (FastAPI + Pydantic + tests)
+- 🐍 `(@nxlv/python)[https://www.npmjs.com/package/@nxlv/python]` scaffolds (FastAPI + Pydantic + tests)
 - 🧭 [CALM](https://github.com/finos/architecture-as-code.git) (architecture-as-code) for topology, patterns, and deployment metadata
 - 📦 Domain model in YAML (`domain/domain.yaml`)
 - 🧰 `justfile` for cross-platform developer tasks
@@ -14,7 +14,7 @@ Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 ## 🔧 Requirements
 
 - Python 3.11 (pyenv or system)
-- Node.js 18
+- Node.js 24
 - cookiecutter (`uv tool install cookiecutter` or `pipx install cookiecutter`)
 - direnv (recommended)
 - Optional: Nx CLI (`pnpm dlx nx --version`), Git
@@ -40,11 +40,12 @@ exec zsh
 pyenv install 3.11.9
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# 3) Install Node 18 (via nvm) and enable pnpm (via Corepack)
-curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"
-nvm install 18
-corepack enable && corepack prepare pnpm@latest --activate
+# 3) Install Node 24 with Volta and pnpm
+curl https://get.volta.sh | bash
+export VOLTA_HOME="$HOME/.volta" && export PATH="$VOLTA_HOME/bin:$PATH"
+exec zsh  # reload shell so Volta is on PATH
+volta install node@24
+volta install pnpm@latest
 
 # 4) Generate a project
 cookiecutter path/to/this/repo
@@ -52,6 +53,10 @@ cd my-hexagon-app
 
 # 5) Load environment
 direnv allow
+
+# 6) Pin toolchain (inside generated project with package.json)
+# Ensures everyone uses the same Node/pnpm versions
+volta pin node@24 pnpm@latest
 ```
 
 ## 🚀 Generate a project from this template

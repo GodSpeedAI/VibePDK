@@ -1602,7 +1602,7 @@ When invoked for local development setup, provide minimal, developer-friendly co
 **Example Local Setup Output:**
 dockerfile
 # Dockerfile (Backend) - Development optimized
-FROM node:18-alpine
+FROM node:24-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN corepack enable && corepack prepare pnpm@latest --activate && pnpm install
@@ -2293,7 +2293,7 @@ Great, I’ll build a contextual foundation tailored to your architecture-as-cod
 
 I'll explore system synthesis models, DSL patterns, and architecture modeling paradigms with emphasis on extensibility, abstraction trade-offs, and developer ergonomics. I’ll let you know as soon as it’s ready for review.
 
-Research completed in 4m · 29 sources · 184 searches
+Research completed in 4m · 29 sources · 244 searches
 Contextual Foundation for Architecture-as-Code and System Generation
 
 Preparation for DSL Design: Frameworks, Patterns, and Case Studies
@@ -3595,7 +3595,7 @@ Example .envrc
 # These helpers come from direnv and automatically set PATH, VIRTUAL_ENV, etc.
 # Adjust to match your actual versions.
 use python 3.11
-use node 18
+use node 24
 
 # General project paths
 export DOMAIN_FILE="$PWD/domain/domain.yaml"
@@ -3665,7 +3665,7 @@ This example .envrc sets up Python and Node versions, paths to your domain and C
 
 # Use direnv to automatically load Python and Node
 use python 3.11
-use node 18
+use node 24
 
 # Core project settings
 export DOMAIN_FILE="$PWD/domain/domain.yaml"
@@ -3767,7 +3767,7 @@ This repository is generated from a Cookiecutter template that combines:
 ## Requirements
 
 - Python 3.11 (install via `pyenv` or your system package manager).
-- Node.js 18.
+- Node.js 24.
 - Cookiecutter (`pip install cookiecutter`).
 - Direnv (`brew install direnv` or your OS package manager).
 - Optional: Nx CLI (`npm install -g nx`), Git.
