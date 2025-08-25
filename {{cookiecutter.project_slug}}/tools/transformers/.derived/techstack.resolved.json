@@ -1,0 +1,13 @@
+{
+  "categories": {
+    "core_application_dependencies": {
+      "web_frameworks": [
+        "fastapi"
+      ]
+    }
+  },
+  "meta": {
+    "source": "techstack.yaml",
+    "version": 1
+  }
+}

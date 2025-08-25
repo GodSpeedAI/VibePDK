@@ -1,7 +1,6 @@
 # Modular AI Prompt Management System (Native Copilot + VS Code)
 
-This repository demonstrates a modular, composable prompt management system that leverages **only the native customization mechanisms of GitHub Copilot and VS Code**—no custom YAML DSL is required. By using repository‑level and folder‑level Markdown files, workspace settings, tasks, and simple scripts, we can achieve sophisticated prompt engineering patterns such as modular composition, inheritance‑like behaviour, LoRA‑
-style stacking, dynamic prompt injection, conditional loading, A/B testing, and hot‑reloading.
+This repository demonstrates a modular, composable prompt management system that leverages **only the native customization mechanisms of GitHub Copilot and VS Code**—no custom YAML DSL is required. By using repository‑level and folder‑level Markdown files, workspace settings, tasks, and simple scripts, we can achieve sophisticated prompt engineering patterns such as modular composition, inheritance‑like behaviour, LoRA‑style stacking, dynamic prompt injection, conditional loading, A/B testing, and hot‑reloading.
 
 ## File Structure
 
@@ -12,7 +11,7 @@ The system is organised into the following directories:
 | `.github/copilot-instructions.md` | Repository‑wide instructions that apply to every prompt. VS Code automatically merges these with other instructions. |
 | `.github/instructions/` | Modular instruction components, each with front‑matter metadata (`description`, `applyTo`) and MECE‑based categories: `general`, `security`, `performance`, `style`, and `context`. Files are applied based on glob patterns. |
 | `.github/prompts/` | Reusable prompt templates (e.g. `create-react-component`, `security-review`, `performance-analysis`) with front‑matter specifying `mode`, `model`, `tools`, and `description`. Prompts can reference instructions or other prompts via relative Markdown links and use context variables like `${fileBasename}`, `${selection}`, etc.. |
-| `.github/chatmodes/` | Custom chat modes that define personas or workflows for the Chat view. Each `.chatmode.md` file contains front‑matter (`description`, `tools`, `model`) and a body with instructions. Chat modes can reference instruction files and appear in the Chat view’s mode picker. |
+| `.github/chatmodes/` | Custom chat modes that define personas or workflows for the Chat view. Each `.chatmode.md` file contains front‑matter (`description`, `tools`, `model`) and a body with instructions. Chat modes can reference instruction files and appear in the Chat view’s mode picker. Includes spec‑driven modes and an onboarding mode. |
 | `.vscode/settings.json` | Workspace settings to enable prompt and instruction files and define where VS Code looks for them. This file also disables unsafe features like `chat.tools.autoApprove` and configures workspace trust. |
 | `.vscode/tasks.json` | Tasks to run prompts, measure token usage, chain multiple runs, and perform A/B testing. Tasks invoke shell scripts in the `scripts` directory. |
 | `.vscode/mcp.json` | Example configuration for Model Context Protocol (MCP) servers using environment variables for authentication. |
@@ -45,7 +44,7 @@ Prompt files can link to other prompts, enabling **prompt chaining**. A larger w
 
 Custom chat modes allow you to create specialised personas or workflows for the Chat view. A chat mode is defined in a `.chatmode.md` file and includes front‑matter fields such as `description`, `tools`, and `model`. The body of the file contains instructions that modify how the AI behaves when that mode is active. Chat modes complement prompts: whereas a prompt defines a specific task, a chat mode defines the overall style and goals of a conversation.
 
-This repository includes **eight** example chat modes located in `.github/chatmodes/`:
+This repository includes role chat modes plus spec‑driven modes located in `.github/chatmodes/`:
 
 * **Product Manager Mode** – transforms raw ideas or business goals into structured, actionable product plans. It creates user personas, detailed user stories and prioritised feature backlogs, emphasising problem analysis, solution validation and impact assessment.
 * **UX/UI Designer Mode** – designs user experiences and visual interfaces for applications. It translates feature stories into comprehensive design systems, detailed user flows and implementation‑ready specifications while championing simplicity, accessibility and aesthetic harmony.
@@ -55,6 +54,12 @@ This repository includes **eight** example chat modes located in `.github/chatmo
 * **QA/Test Automation Engineer Mode** – writes context‑appropriate test suites and strategies for backend, frontend or end‑to‑end scenarios. It validates functionality against technical specifications, identifies edge cases, integrates performance testing and operates in parallel with development.
 * **DevOps Deployment Engineer Mode** – orchestrates the complete software delivery lifecycle. It provisions infrastructure with IaC, implements secure CI/CD pipelines, manages environments from local to production, and integrates security, monitoring and scalability throughout the deployment process.
 * **Security Analyst Mode** – performs comprehensive security analysis and vulnerability assessment for applications and infrastructure. It offers quick security scans or full audits, covering application security, data protection, infrastructure configuration, API and integration security, dependency scanning and threat modeling.
+
+Spec‑driven and onboarding chat modes:
+
+* Spec‑Driven Mode (wide) – `.github/chatmodes/spec-driven.chatmode.md`.
+* Spec‑Driven Lean – `.github/chatmodes/spec-driven-lean.chatmode.md`.
+* Onboarding Mode – `.github/chatmodes/onboarding.chatmode.md`.
 
 To enable discovery of custom chat modes, our `settings.json` includes a `chat.modeFilesLocations` entry pointing to `.github/chatmodes`. You can add more chat modes by creating additional `.chatmode.md` files in this folder and defining the desired tools, model, and instructions.
 
@@ -69,6 +74,10 @@ VS Code tasks provide an imperative layer on top of our declarative prompt defi
 * **Run tasks** (`Run: Create React Component`, `Run: Security Review`, etc.) invoke the `run_prompt.sh` script with the appropriate prompt file.
 * **Measure tasks** estimate token usage with `measure_tokens.sh`, helping you monitor prompt length and optimise accordingly.
 * **A/B testing** is supported via a compound task (`AB Test: Create React Component`) that depends on running the same prompt with different configurations (e.g. style vs. performance). You can create Git branches or workspace settings variants to test different instruction mixes.
+
+CLI lifecycle runner:
+
+* Use `npm run -s prompt:lifecycle` to lint → plan → run a prompt and log metrics. The default target is `implement-feature.prompt.md`. See `tools/cli/prompt_lifecycle.js` and `package.json` for details.
 
 Because tasks are defined in JSON (not YAML), they benefit from VS Code’s validation and auto‑completion. They also hot‑reload—saving `tasks.json` or any script automatically updates the tasks without restarting VS Code. Remember that tasks will not run in untrusted workspaces; users must trust the folder first.
 
@@ -89,6 +98,29 @@ Security is a first‑class concern. The [security instructions](../.github/inst
 
 Performance is addressed through the [performance instructions](../.github/instructions/performance.instructions.md), which encourage efficient algorithms, context scoping via variables, caching, and token reduction strategies. Measuring token usage with `measure_tokens.sh` helps ensure your prompts remain concise.
 
+## Tech stack sync (idempotent)
+
+- Source of truth: `techstack.yaml` at repo root (validated by `docs/techstack.schema.json`).
+- Plan/apply:
+	- Preview: `just plan-techstack`
+	- Apply: `just sync-techstack`
+- Prompt-assisted review: `.github/prompts/sync-techstack.prompt.md` reconciles PRD/SDS/ADR/TS with the stack and proposes deterministic updates to cookiecutter/generators.
+
+## Commit messages and traceability
+
+Follow the commit message guidance in:
+
+- Human guide: [docs/commit_message_guidelines.md](./commit_message_guidelines.md)
+- Instruction used by Copilot/tasks: [.github/instructions/commit‑msg.instructions.md](../.github/instructions/commit-msg.instructions.md)
+
+Notes
+- Subject ≤ 72 chars, imperative mood; include spec IDs (PRD‑xxx, ADR‑xxx, SDS‑xxx, DEV‑*) and risks/mitigations.
+- A commit‑msg hook in CI expects a spec ID.
+
+Related specs index and matrix:
+- Product/dev indices: [docs/spec_index.md](./spec_index.md), [docs/dev_spec_index.md](./dev_spec_index.md)
+- Traceability matrix: [docs/traceability_matrix.md](./traceability_matrix.md)
+
 ## Advanced Usage
 
 **LoRA‑style stacking:** Compose multiple instruction files in a prompt to emulate stacking LoRA adapters. For example, a prompt could link to `security.instructions.md`, `performance.instructions.md`, and `style.instructions.md` to apply all three sets of guidelines simultaneously. Changing the combination yields different behaviours without editing the base prompt, analogous to applying different LoRA weight deltas on a base model.
@@ -100,6 +132,30 @@ Performance is addressed through the [performance instructions](../.github/instr
 **A/B testing:** Create separate Git branches or workspace folders with different instruction mixes or prompt implementations. Use the `AB Test` task to run both variations and compare outputs. Because prompts are regular Markdown files, you can review diffs, run code reviews, and revert changes easily.
 
 **Hot‑reloading:** Changes to instruction files, prompt files, or tasks take effect immediately. There is no YAML compiler or build step; you simply edit the Markdown or JSON files and rerun the prompt.
+
+## CI overview
+
+The workflow at `.github/workflows/spec-guard.yml` enforces:
+- Prompt lint and plan on all `*.prompt.md`
+- Node unit tests and shell specs (if present)
+- Environment audit artifact upload
+- PR comment upsert with key results
+
+See also the integration plan: [docs/devkit-prompts-instructions-integration.md](./devkit-prompts-instructions-integration.md).
+
+## Using the chat modes
+
+To use the spec‑driven or onboarding chat modes in VS Code:
+
+1. Open the Chat view.
+2. Click the mode picker at the top (it shows your current mode).
+3. Choose one of:
+	- Spec‑Driven Mode — `.github/chatmodes/spec-driven.chatmode.md`
+	- Spec‑Driven Lean — `.github/chatmodes/spec-driven-lean.chatmode.md`
+	- Onboarding Mode — `.github/chatmodes/onboarding.chatmode.md`
+4. Start chatting. The mode’s instructions, tools, and model are applied automatically.
+
+Tip: Ensure workspace trust is granted so prompts and mode files are discoverable (see Security section). You can switch modes anytime during a conversation.
 
 ## Conclusion
 

@@ -1,10 +1,16 @@
+# VibePDK
+
+[![Node Tests](https://github.com/SPRIME01/VibePDK/actions/workflows/node-tests.yml/badge.svg)](https://github.com/SPRIME01/VibePDK/actions/workflows/node-tests.yml)
+
+# {{ cookiecutter.project_slug }} — Cookiecutter template ⚙️
+Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 # {{ cookiecutter.project_slug }} — Cookiecutter template ⚙️
 
 Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 
 ## ✨ What this template provides
 
-- 🚦 Nx for monorepo orchestration
+- 🚦 [Nx](https://nx.dev/) for monorepo orchestration
 - 🐍 `(@nxlv/python)[https://www.npmjs.com/package/@nxlv/python]` scaffolds (FastAPI + Pydantic + tests)
 - 🧭 [CALM](https://github.com/finos/architecture-as-code.git) (architecture-as-code) for topology, patterns, and deployment metadata
 - 📦 Domain model in YAML (`domain/domain.yaml`)
@@ -16,7 +22,7 @@ Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 - Python 3.11 (pyenv or system)
 - Node.js 24
 - cookiecutter (`uv tool install cookiecutter` or `pipx install cookiecutter`)
-- direnv (recommended)
+- [direnv](https://direnv.net/) (recommended)
 - Optional: Nx CLI (`pnpm dlx nx --version`), Git
 
 ## ⚡ Quick Start (WSL2 + zsh)
@@ -120,7 +126,13 @@ justfile
 
 ## 📚 Docs and mappings
 
-See the `docs/` folder for mapping guidance between CALM, `domain.yaml`, and generator inputs, plus prompt-management docs.
+See the `docs/` folder for mapping guidance between CALM, `domain.yaml`, and generator inputs, plus prompt‑management docs:
+
+- Prompt system: `docs/README.md`
+- Integration plan: `docs/devkit-prompts-instructions-integration.md`
+- Commit messages: `docs/commit_message_guidelines.md` and `.github/instructions/commit-msg.instructions.md`
+- Prompts: `.github/prompts/*` and chat modes: `.github/chatmodes/*`
+ - Tech stack sync: `techstack.yaml` + `docs/techstack.schema.json`; run `just plan-techstack` then `just sync-techstack`. See `.github/prompts/sync-techstack.prompt.md`.
 
 ---
 

@@ -55,7 +55,7 @@ Many teams have experimented with custom YAML DSLs to manage AI prompts. While Y
 
    # Create a React Component
 
-   Follow our [security instructions](../instructions/security.instructions.md) and [performance instructions](../instructions/performance.instructions.md) when generating code. Ask the user for a component name and use ${fileBasename} to determine where to create the file.
+   Follow our [security instructions](../.github/instructions/security.instructions.md) and [performance instructions](../.github/instructions/performance.instructions.md) when generating code. Ask the user for a component name and use ${fileBasename} to determine where to create the file.
    ```
 
 3. **Move default and global settings into `settings.json`.** YAML DSLs often include defaults like model selection, prompt file paths, or enabling/disabling features. In VS Code, these become workspace settings. For example, enable prompt files with `"chat.promptFiles": true` and point `chat.promptFilesLocations` to your `.github/prompts` folder. Disable auto‑approval with `"chat.tools.autoApprove": false`.

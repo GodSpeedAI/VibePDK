@@ -5,13 +5,13 @@
 Describe 'run_prompt.sh'
 
   It 'shows usage and fails when no args'
-    When run script scripts/run_prompt.sh
+    When run sh scripts/run_prompt.sh
     The status should be failure
     The stderr should include 'Usage:'
   End
 
   It 'fails when prompt file is missing'
-    When run script scripts/run_prompt.sh non_existent.prompt.md
+    When run sh scripts/run_prompt.sh non_existent.prompt.md
     The status should be failure
     The stderr should include "does not exist"
   End
@@ -24,7 +24,7 @@ Describe 'run_prompt.sh'
 # Sample prompt
 Content
 EOF
-    When run script scripts/run_prompt.sh "$prompt_file" --config=style
+  When run sh scripts/run_prompt.sh "$prompt_file" --config=style
     The status should be success
     The output should include '[run_prompt] Running prompt:'
     The output should include '[run_prompt] Using configuration:'
