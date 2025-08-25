@@ -6,6 +6,9 @@
     "license": "MIT",
     "scripts": {
         "test:node": "tsx tools/test/run_node_tests.ts",
+        "spec:matrix": "node tools/spec/matrix.js",
+        "prompt:lint": "node tools/prompt/lint.js .github/prompts/create-react-component.prompt.md && node tools/prompt/lint.js .github/prompts/security-review.prompt.md || true",
+        "prompt:plan": "node tools/prompt/plan_preview.js .github/prompts/create-react-component.prompt.md",
         "lint:md": "markdownlint \"**/*.md\" --config .markdownlint.json",
         "prepare": "husky install"
     },
@@ -21,6 +24,9 @@
     "lint-staged": {
         "**/*.md": [
             "markdownlint --config .markdownlint.json"
+        ],
+        ".github/prompts/*.prompt.md": [
+            "node tools/prompt/lint.js"
         ]
     }
 }
