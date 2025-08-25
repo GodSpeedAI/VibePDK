@@ -6,7 +6,7 @@ Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 
 - 🚦 Nx for monorepo orchestration
 - 🐍 `@nxlv/python` scaffolds (FastAPI + Pydantic + tests)
-- 🧭 CALM (architecture-as-code) for topology, patterns, and deployment metadata
+- 🧭 [CALM](https://github.com/finos/architecture-as-code.git) (architecture-as-code) for topology, patterns, and deployment metadata
 - 📦 Domain model in YAML (`domain/domain.yaml`)
 - 🧰 `justfile` for cross-platform developer tasks
 - 💬 Prompt management artifacts (.github copilot instructions, prompts, chat modes)
