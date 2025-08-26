@@ -8,10 +8,10 @@ description: 'Implement a feature per PRD/ADR/SDS/TS with tests and traceability
 # Implement Feature (Spec- & DX-Driven)
 
 ## Inputs
-- Product Feature IDs: {{PRD_IDS}}
-- Related architectural decisions: {{ADR_IDS}}
-- SDS/TS components: {{SDS_IDS}} {{TS_IDS}}
-- Developer platform constraints (optional): {{DEV_IDS}}
+- Product Feature IDs: {{ '{{PRD_IDS}}' }}
+- Related architectural decisions: {{ '{{ADR_IDS}}' }}
+- SDS/TS components: {{ '{{SDS_IDS}}' }} {{ '{{TS_IDS}}' }}
+- Developer platform constraints (optional): {{ '{{DEV_IDS}}' }}
 
 ## Task
 1) Plan edits with file list and impact radius.

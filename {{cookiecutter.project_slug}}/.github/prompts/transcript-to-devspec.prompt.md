@@ -9,7 +9,7 @@ description: 'Convert a conversation transcript into developer spec drafts with 
 
 ## Inputs
 - Conversation transcript or summary
-- Target DEV spec IDs (proposed): {{DEV_IDS}}
+- Target DEV spec IDs (proposed): {{ '{{DEV_IDS}}' }}
 
 ## Task
 - Extract developer platform impacts, tooling, CI/test/lint requirements.

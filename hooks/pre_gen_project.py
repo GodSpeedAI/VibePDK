@@ -39,7 +39,7 @@ if not author:
 
 # python_version: basic 3.x validation
 if not re.fullmatch(r"3\.(10|11|12)(?:\.\d+)?", pyver):
-    fail("python_version must be 3.10, 3.11, or 3.12 (optionally with patch)")
+    fail("python_version must be 3.10, 3.12, or 3.12 (optionally with patch)")
 
 
 # description: short sanity check

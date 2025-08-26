@@ -3,11 +3,11 @@
 
 # Convert a CALM spec to domain YAML
 calm-to-domain target?=domain/domain.yaml src?=architecture/calm/system.calm.json:
-    python tools/transformers/translator.py --from-calm {{src}} --to-domain {{target}}
+    python tools/transformers/translator.py --from-calm {{ '{{src}}' }} --to-domain {{ '{{target}}' }}
 
 # Convert a domain YAML to CALM
 domain-to-calm target?=architecture/calm/system.calm.json src?=domain/domain.yaml:
-    python tools/transformers/translator.py --from-domain {{src}} --to-calm {{target}}
+    python tools/transformers/translator.py --from-domain {{ '{{src}}' }} --to-calm {{ '{{target}}' }}
 
 # Validate CALM patterns and controls
 validate-calm:
@@ -17,8 +17,8 @@ validate-calm:
 
 # Generate a new service from the domain model
 generate service name lang='python':
-    @echo "Running Nx service generator for '{{name}}' with language '{{lang}}'..."
-    pnpm dlx nx generate service --name={{name}} --language={{lang}}
+    @echo "Running Nx service generator for '{{ '{{name}}' }}' with language '{{ '{{lang}}' }}'..."
+    pnpm dlx nx generate service --name={{ '{{name}}' }} --language={{ '{{lang}}' }}
 
 # Lint and format
 lint:
@@ -64,12 +64,12 @@ default:
 
 # Preview changes to the resolved tech stack (diff only)
 plan-techstack ts="techstack.yaml":
-	bash scripts/plan_techstack.sh {{ts}}
+	bash scripts/plan_techstack.sh {{ '{{ts}}' }}
 
 # Apply changes to the resolved tech stack (writes .derived JSON)
 sync-techstack ts="techstack.yaml":
-	bash scripts/sync_techstack.sh {{ts}}
+	bash scripts/sync_techstack.sh {{ '{{ts}}' }}
 
 # Apply (dry-run): no writes, show diff
 sync-techstack-dry ts="techstack.yaml":
-	bash scripts/sync_techstack.sh --dry-run {{ts}}
+	bash scripts/sync_techstack.sh --dry-run {{ '{{ts}}' }}
