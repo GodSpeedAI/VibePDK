@@ -12,3 +12,7 @@ sync-techstack ts="techstack.yaml":
 # Apply (dry-run): no writes, show diff
 sync-techstack-dry ts="techstack.yaml":
 	bash scripts/sync_techstack.sh --dry-run {{ '{{ts}}' }}
+
+# Linting and Testing
+lint-shell:
+	pnpm lint:shell

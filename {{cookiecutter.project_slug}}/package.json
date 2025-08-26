@@ -14,7 +14,7 @@
         "docs:links": "node tools/docs/link_check.js",
         "env:audit": "node tools/audit/env_audit.js",
         "pr:comment": "node tools/ci/pr_comment.js",
-        "prepare": "husky install"
+        "lint:shell": "shellcheck scripts/*.sh"
     },
     "devDependencies": {
         "@types/node": "^22.5.4",
@@ -25,7 +25,8 @@
         "markdownlint-cli": "^0.36.0",
         "markdownlint": "^0.36.0",
         "husky": "^8.0.0",
-        "lint-staged": "^14.0.0"
+        "lint-staged": "^14.0.0",
+        "shellcheck": "^4.1.0"
     },
     "pnpm": {
         "overrides": {
