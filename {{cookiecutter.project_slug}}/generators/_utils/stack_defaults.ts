@@ -6,38 +6,38 @@ export type ServiceDefaults = {
     packageManager: 'pnpm' | 'npm' | 'yarn';
 };
 
+const frameworkToLanguage: Record<string, ServiceDefaults['language']> = {
+    express: 'typescript',
+    nest: 'typescript',
+    '@nestjs': 'typescript',
+    fastapi: 'python',
+};
+
 /**
  * Derive generator defaults from resolved tech stack (deterministic, minimal).
  * Pure function; safe to use in dry-runs and planning.
  */
 export function deriveServiceDefaults(stack: any | null): ServiceDefaults {
-    // Hard defaults (stable)
-    let language: ServiceDefaults['language'] = 'python';
-    let backendFramework: ServiceDefaults['backendFramework'] = 'none';
-    let packageManager: ServiceDefaults['packageManager'] = 'pnpm';
+    const defaults: ServiceDefaults = {
+        language: 'python',
+        backendFramework: 'none',
+        packageManager: 'pnpm',
+    };
 
-    // Frontend package manager preference (if present)
-    const frontend = getCategory(stack, 'frontend_client_dependencies');
-    if (frontend && typeof frontend === 'object') {
-        // Keep default pnpm unless explicit hint found (none for now)
-    }
-
-    // Backend framework detection
     const core = getCategory(stack, 'core_application_dependencies');
     if (core && typeof core === 'object') {
-        const webFrameworks: any = (core as any).web_frameworks;
+        const webFrameworks = (core as any).web_frameworks;
         if (Array.isArray(webFrameworks)) {
             const lower = webFrameworks.map(String).map((s) => s.toLowerCase());
-            if (lower.includes('fastapi')) backendFramework = 'fastapi';
-            else if (lower.includes('express')) {
-                backendFramework = 'express';
-                language = 'typescript';
-            } else if (lower.includes('nest') || lower.includes('@nestjs')) {
-                backendFramework = 'nest';
-                language = 'typescript';
+            for (const fw of lower) {
+                if (frameworkToLanguage[fw]) {
+                    defaults.backendFramework = fw as ServiceDefaults['backendFramework'];
+                    defaults.language = frameworkToLanguage[fw];
+                    break; // First match wins
+                }
             }
         }
     }
 
-    return { language, backendFramework, packageManager };
+    return defaults;
 }

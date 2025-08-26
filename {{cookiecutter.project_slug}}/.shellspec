@@ -1,0 +1,3 @@
+# ShellSpec project config (minimal)
+# Keep default settings; run specs under bash for scripts using bashisms.
+# You can override shell with: shellspec -s bash

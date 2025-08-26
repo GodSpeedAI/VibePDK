@@ -1,35 +1,49 @@
-import { Tree, formatFiles, installPackagesTask } from '@nx/devkit';
+import { Tree, formatFiles, installPackagesTask, generateFiles, names } from '@nx/devkit';
+import * as path from 'path';
 import { getCategory, loadResolvedStack } from '../_utils/stack';
 import { deriveServiceDefaults } from '../_utils/stack_defaults';
 
-export default async function (tree: Tree, schema: any) {
-  // This generator scaffolds a new service based on domain or CALM specs.
-  // The logic should read translator output (domain/domain.yaml) and create
-  // Nx applications and libraries using @nxlv/python for Python services or
-  // other generators for TypeScript or other languages.
-  // Use the Nx devkit to generate files deterministically.
+interface ServiceSchema {
+  name: string;
+  language?: 'python' | 'typescript';
+}
 
-  // TODO: implement service scaffolding.
+function normalizeOptions(schema: any): ServiceSchema {
+  const name = names(schema.name).fileName;
+  return {
+    ...schema,
+    name,
+  };
+}
+
+export default async function (tree: Tree, schema: any) {
+  const options = normalizeOptions(schema);
+
   // Optional: seed defaults from resolved tech stack (if present)
   try {
     const root = tree.root;
     const stack = loadResolvedStack(root);
-    const _backend = getCategory(stack, 'core_application_dependencies');
     // Feature flag: only use derived defaults when explicitly enabled
-    // When enabled, derive defaults from the resolved tech stack and only
-    // apply them if the user hasn't provided explicit values. This keeps the
-    // behavior opt-in and non-breaking. (DEV-PRD, DEV-SDS)
     if (process.env.VIBEPDK_USE_STACK_DEFAULTS === '1') {
       const defaults = deriveServiceDefaults(stack);
-      // Apply defaults only if user hasn't provided values.
-      // Keep this minimal and non-breaking.
-      schema.language = schema.language ?? defaults.language;
-      schema.backendFramework = schema.backendFramework ?? defaults.backendFramework;
-      schema.packageManager = schema.packageManager ?? defaults.packageManager;
+      options.language = options.language ?? defaults.language;
     }
-  } catch {
-    // Best-effort only; never fail generator on missing stack.
+  } catch (e) {
+    // Best-effort only; never fail generator on missing stack, but log a warning.
+    console.warn(`Could not derive defaults from tech stack: ${e.message}`);
   }
+
+  // Ensure language has a default value to satisfy TypeScript
+  const language = options.language ?? 'python';
+
+  const serviceRoot = `apps/${options.name}`;
+
+  generateFiles(tree, path.join(__dirname, 'files', language), serviceRoot, {
+    ...options,
+    // properties to use in template files
+    serviceName: options.name,
+  });
+
   await formatFiles(tree);
   return () => {
     installPackagesTask(tree);
