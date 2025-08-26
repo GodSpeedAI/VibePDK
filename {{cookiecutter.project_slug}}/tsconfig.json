@@ -15,6 +15,7 @@
     },
     "include": [
         "tools/**/*.ts",
-        "tests/**/*.ts"
+        "tests/**/*.ts",
+        "generators/**/*.ts"
     ]
 }

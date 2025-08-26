@@ -18,12 +18,19 @@
     },
     "devDependencies": {
         "@types/node": "^22.5.4",
+        "@nx/devkit": "19.8.4",
+        "nx": "19.8.4",
         "tsx": "^4.16.2",
         "typescript": "^5.5.4",
         "markdownlint-cli": "^0.36.0",
         "markdownlint": "^0.36.0",
         "husky": "^8.0.0",
         "lint-staged": "^14.0.0"
+    },
+    "pnpm": {
+        "overrides": {
+            "@nrwl/devkit": "19.8.4"
+        }
     },
     "lint-staged": {
         "**/*.md": [
