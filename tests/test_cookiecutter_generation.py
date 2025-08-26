@@ -98,14 +98,14 @@ def test_generated_project_installs_and_tests_pass(cookies):
             capture_output=True,
             text=True,
         )
-        print("pnpm test:node stdout:")
-        print(test_result.stdout)
-        print("pnpm test:node stderr:")
-        print(test_result.stderr)
+        logger.info("pnpm test:node stdout:")
+        logger.info(test_result.stdout)
+        logger.info("pnpm test:node stderr:")
+        logger.info(test_result.stderr)
 
     except FileNotFoundError as e:
         pytest.fail(f"Command not found: {e}. Is pnpm installed and in the PATH?")
     except subprocess.CalledProcessError as e:
-        print("STDOUT:", e.stdout)
-        print("STDERR:", e.stderr)
+        logger.error("STDOUT: %s", e.stdout)
+        logger.error("STDERR: %s", e.stderr)
         pytest.fail(f"Command '{' '.join(e.cmd)}' failed with exit code {e.returncode}")
