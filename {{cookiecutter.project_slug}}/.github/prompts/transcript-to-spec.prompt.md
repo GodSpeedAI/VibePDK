@@ -9,7 +9,7 @@ description: 'Convert a conversation transcript into product spec drafts with ID
 
 ## Inputs
 - Conversation transcript or summary
-- Target spec IDs (proposed): {{PRD_IDS}} {{ADR_IDS}} {{SDS_IDS}} {{TS_IDS}}
+- Target spec IDs (proposed): {{ '{{PRD_IDS}}' }} {{ '{{ADR_IDS}}' }} {{ '{{SDS_IDS}}' }} {{ '{{TS_IDS}}' }}
 
 ## Task
 - Extract user needs, scope, acceptance criteria, and key decisions.

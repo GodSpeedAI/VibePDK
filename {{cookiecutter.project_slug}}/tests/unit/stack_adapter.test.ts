@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { getCategory, loadResolvedStack } from '../../{{cookiecutter.project_slug}}/generators/_utils/stack';
+import { getCategory, loadResolvedStack } from '../../generators/_utils/stack';
 
 // This test now properly imports from the source file.
 // It relies on the test runner (tsx) to handle the TypeScript transpilation.

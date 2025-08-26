@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import fs from 'node:fs';
 import { compareSnapshot, writeSnapshot } from '../../tools/test/snapshot';
-import { deriveServiceDefaults } from '../../{{cookiecutter.project_slug}}/generators/_utils/stack_defaults';
+import { deriveServiceDefaults } from '../../generators/_utils/stack_defaults';
 
 // Happy path: fastapi implies python + fastapi + pnpm
 {

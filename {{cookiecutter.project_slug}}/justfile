@@ -3,12 +3,12 @@ default:
 
 # Preview changes to the resolved tech stack (diff only)
 plan-techstack ts="techstack.yaml":
-	bash scripts/plan_techstack.sh {{ts}}
+	bash scripts/plan_techstack.sh {{ '{{ts}}' }}
 
 # Apply changes to the resolved tech stack (writes .derived JSON)
 sync-techstack ts="techstack.yaml":
-	bash scripts/sync_techstack.sh {{ts}}
+	bash scripts/sync_techstack.sh {{ '{{ts}}' }}
 
 # Apply (dry-run): no writes, show diff
 sync-techstack-dry ts="techstack.yaml":
-	bash scripts/sync_techstack.sh --dry-run {{ts}}
+	bash scripts/sync_techstack.sh --dry-run {{ '{{ts}}' }}

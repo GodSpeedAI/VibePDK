@@ -8,8 +8,8 @@ description: 'Load specific spec items using indexes and summarize constraints.'
 # Load Spec Items (Selective)
 
 ## Inputs
-- Product IDs: {{PRD_IDS}} {{ADR_IDS}} {{SDS_IDS}} {{TS_IDS}}
-- Developer IDs (optional): {{DEV_IDS}}
+- Product IDs: {{ '{{PRD_IDS}}' }} {{ '{{ADR_IDS}}' }} {{ '{{SDS_IDS}}' }} {{ '{{TS_IDS}}' }}
+- Developer IDs (optional): {{ '{{DEV_IDS}}' }}
 
 ## Task
 1) From `docs/spec_index.md` and `docs/dev_spec_index.md`, locate paths/anchors.
