@@ -14,7 +14,7 @@
         "noEmit": true
     },
     "include": [
-        "tools/**/*.ts",
-        "tests/**/*.ts"
+        "vibepdk_archive/tools/**/*.ts",
+        "vibepdk_archive/tests/**/*.ts"
     ]
 }
