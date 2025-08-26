@@ -110,6 +110,7 @@ Always write strictly typed code.
   - Enable strict mode (`"strict": true`) and modern target/module per the template tsconfig. Prefer ES2022+ features.
   - Use explicit types, `unknown` over `any`, `as const` where helpful, discriminated unions, and `satisfies` for constraint checks.
   - Prefer composition over inheritance. Keep side effects explicit.
+- Write strategic comments that explain the "why" behind non-obvious decisions, not the "what" or "how" that code already shows
 
 General:
 - Favor small, deterministic functions and clear error handling.
@@ -135,3 +136,20 @@ General:
 - `{{cookiecutter.project_slug}}/` — template content including Node/Nx/CALM.
 
 Follow these steps verbatim; only search if you encounter discrepancies.
+
+## Commit Messages
+
+Write clear, scannable messages that explain **what changed and why**. Follow conventional commit format: `type(scope): description`
+
+**Structure:**
+- Use imperative mood ("Add feature" not "Added feature")
+- Keep subject line ≤50 characters
+- Use bullet points for multiple changes
+- Include breaking change warnings when applicable
+
+**Content focus:**
+- Explain business impact and reasoning, not implementation details
+- Link to issues/tickets when relevant
+- Use meaningful emojis sparingly (✨ new feature, 🐛 bugfix, ♻️ refactor)
+- Include diagrams (mermaid) only when they clarify complex architectural changes
+

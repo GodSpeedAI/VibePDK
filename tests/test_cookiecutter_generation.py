@@ -1,15 +1,35 @@
+from __future__ import annotations
+
 import logging
 import subprocess
+from pathlib import Path
+from typing import Dict, Optional, Protocol
 
 import pytest
-from cookiecutter.exceptions import FailedHookException
 
 
-def test_bake_project_with_defaults(cookies):
+class BakeResult(Protocol):
+    """
+    Protocol describing the minimal shape of the cookies.bake() result
+    used in these tests.
+    """
+
+    exit_code: int
+    exception: Optional[BaseException]
+    project_path: Path
+
+
+class CookiesFixture(Protocol):
+    """Protocol describing the cookies fixture used by pytest-cookies."""
+
+    def bake(self, extra_context: Optional[Dict[str, str]] = ...) -> BakeResult: ...
+
+
+def test_bake_project_with_defaults(cookies: CookiesFixture) -> None:
     """
     Test that the project can be baked with default values.
     """
-    result = cookies.bake()
+    result: BakeResult = cookies.bake()
 
     assert result.exit_code == 0
     assert result.exception is None
@@ -22,17 +42,17 @@ def test_bake_project_with_defaults(cookies):
     assert (result.project_path / "techstack.yaml").is_file()
 
 
-def test_bake_project_with_custom_context(cookies):
+def test_bake_project_with_custom_context(cookies: CookiesFixture) -> None:
     """
     Test that the project can be baked with custom context.
     """
-    context = {
+    context: Dict[str, str] = {
         "project_slug": "my-awesome-project",
         "author_name": "Test Author",
         "python_version": "3.12",
         "description": "A truly awesome project.",
     }
-    result = cookies.bake(extra_context=context)
+    result: BakeResult = cookies.bake(extra_context=context)
 
     assert result.exit_code == 0
     assert result.exception is None
@@ -50,32 +70,36 @@ def test_bake_project_with_custom_context(cookies):
         ("good-slug", True),
     ],
 )
-def test_pre_generation_hook_validation(cookies, slug, is_valid):
+def test_pre_generation_hook_validation(
+    cookies: CookiesFixture, slug: str, is_valid: bool
+) -> None:
     """
     Test the pre-generation hook validation logic.
     """
     if is_valid:
-        result = cookies.bake(extra_context={"project_slug": slug})
+        result: BakeResult = cookies.bake(extra_context={"project_slug": slug})
         assert result.exit_code == 0
     else:
-        result = cookies.bake(extra_context={"project_slug": slug})
+        result: BakeResult = cookies.bake(extra_context={"project_slug": slug})
         assert result.exit_code != 0
-        assert isinstance(result.exception, FailedHookException)
+        # runtime-safe check: ensure an exception was raised and it is the hook failure type
+        assert result.exception is not None
+        assert result.exception.__class__.__name__ == "FailedHookException"
 
 
-def test_generated_project_installs_and_tests_pass(cookies):
+def test_generated_project_installs_and_tests_pass(cookies: CookiesFixture) -> None:
     """
     Generate the project and run its own test suite.
     This is a critical integration test.
     """
-    result = cookies.bake()
+    result: BakeResult = cookies.bake()
     assert result.exit_code == 0
-    project_path = result.project_path
+    project_path: Path = result.project_path
 
     # The generated project uses pnpm, so we need to install dependencies.
     # We also need to enable corepack first.
     # Logger is module-level for use in except blocks
-    logger = logging.getLogger(__name__)
+    logger: logging.Logger = logging.getLogger(__name__)
 
     try:
         # Enable corepack to use pnpm
@@ -94,7 +118,7 @@ def test_generated_project_installs_and_tests_pass(cookies):
             text=True,
         )
         # Run the node tests
-        test_result = subprocess.run(
+        test_result: subprocess.CompletedProcess[str] = subprocess.run(
             ["pnpm", "test:node"],
             cwd=project_path,
             check=True,
@@ -108,9 +132,15 @@ def test_generated_project_installs_and_tests_pass(cookies):
         logger.info("pnpm test:node stderr:")
         logger.info(test_result.stderr)
 
-    except FileNotFoundError as e:
-        pytest.fail(f"Command not found: {e}. Is pnpm installed and in the PATH?")
-    except subprocess.CalledProcessError as e:
-        logger.error("STDOUT: %s", e.stdout)
-        logger.error("STDERR: %s", e.stderr)
-        pytest.fail(f"Command '{' '.join(e.cmd)}' failed with exit code {e.returncode}")
+    except FileNotFoundError as fnf_error:
+        # Command missing (e.g., corepack or pnpm not installed / not on PATH)
+        pytest.fail(
+            f"Command not found: {fnf_error}. Is pnpm installed and in the PATH?"
+        )
+    except subprocess.CalledProcessError as cpe:
+        # Subprocess failed (non-zero exit) — log outputs and fail the test
+        logger.error("STDOUT: %s", cpe.stdout)
+        logger.error("STDERR: %s", cpe.stderr)
+        pytest.fail(
+            f"Command '{' '.join(cpe.cmd)}' failed with exit code {cpe.returncode}"
+        )
