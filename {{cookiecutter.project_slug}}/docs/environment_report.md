@@ -7,9 +7,9 @@ CPUs: 8
 Total Memory: 6 GB
 
 ## Tools
-node: v22.17.0
+node: v24.6.0
 pnpm: 10.13.1
 docker: Docker version 28.3.2, build 578ccf6
-podman: 
-python: Python 3.12.3
+podman:
+python: Python 3.12.11
 

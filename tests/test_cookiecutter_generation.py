@@ -1,9 +1,9 @@
-import os
+import logging
 import subprocess
-from pathlib import Path
 
 import pytest
 from cookiecutter.exceptions import FailedHookException
+
 
 def test_bake_project_with_defaults(cookies):
     """
@@ -74,6 +74,9 @@ def test_generated_project_installs_and_tests_pass(cookies):
 
     # The generated project uses pnpm, so we need to install dependencies.
     # We also need to enable corepack first.
+    # Logger is module-level for use in except blocks
+    logger = logging.getLogger(__name__)
+
     try:
         # Enable corepack to use pnpm
         subprocess.run(
@@ -98,6 +101,8 @@ def test_generated_project_installs_and_tests_pass(cookies):
             capture_output=True,
             text=True,
         )
+        # Ensure a logger is available for test output
+        logger = logging.getLogger(__name__)
         logger.info("pnpm test:node stdout:")
         logger.info(test_result.stdout)
         logger.info("pnpm test:node stderr:")

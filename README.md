@@ -19,7 +19,7 @@ Quick reference and onboarding for the Nx + CALM + Cookiecutter template.
 
 ## 🔧 Requirements
 
-- Python 3.11 (pyenv or system)
+- Python 3.12 (pyenv or system)
 - Node.js 24
 - cookiecutter (`uv tool install cookiecutter` or `pipx install cookiecutter`)
 - [direnv](https://direnv.net/) (recommended)
@@ -34,7 +34,7 @@ Follow these minimal steps on Ubuntu in WSL2 using zsh and direnv:
 sudo apt update && sudo apt install -y zsh direnv git
 echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
 
-# 2) Install Python 3.11 (via pyenv, recommended) and uv
+# 2) Install Python 3.12 (via pyenv, recommended) and uv
 sudo apt install -y build-essential curl libssl-dev zlib1g-dev \
   libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev \
   xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
@@ -43,7 +43,7 @@ echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 exec zsh
-pyenv install 3.11.9
+pyenv install 3.12.11
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # 3) Install Node 24 with Volta and pnpm
