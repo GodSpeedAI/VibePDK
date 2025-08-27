@@ -30,3 +30,14 @@ See: `docs/spec_index.md`, `docs/dev_spec_index.md`, and `docs/traceability_matr
 - Tool descriptors live under `mcp/` with a `tool_index.md` and individual `*.tool.md` files.
 - Do not hardcode secrets; read tokens from environment variables in settings or runtime.
 - These descriptors are optional and may be used to document available tools for MCP-aware setups.
+
+## Using AI workflows (TDD, Debug)
+- Chat modes added under `.github/chatmodes/`:
+  - TDD: `ai-tdd-red`, `ai-tdd-green`, `ai-tdd-refactor`
+  - Debug: `ai-debug-start`, `ai-debug-repro`, `ai-debug-isolate`, `ai-debug-fix`, `ai-debug-refactor`, `ai-debug-regress`
+- Prompts: `.github/prompts/vibecoder-tdd.prompt.md`, `.github/prompts/vibecoder-debug.prompt.md` (kept concise; align to specs and CALM).
+- Context bundle: run `just ai-context-bundle` to generate `docs/ai_context_bundle/` (contains CALM + tech stack + key docs). Chat modes reference this path.
+- Validation: `just ai-validate` runs lint/typecheck and optional Nx tests.
+- Scaffolding: `just ai-scaffold name=<generator>` wraps `pnpm exec nx g` (safe if pnpm/Nx missing).
+
+See: `.github/instructions/ai-workflows.instructions.md` for conventions and risk mitigations.

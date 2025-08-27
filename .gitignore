@@ -61,7 +61,7 @@ tmp/
 .cache/
 docs/generated/
 docs/build/
-
+docs/ai_context_bundle/
 
 # Generated / tooling
 node_modules/
