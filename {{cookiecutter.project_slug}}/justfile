@@ -24,42 +24,44 @@ ai-context-bundle:
 	bash scripts/bundle-context.sh docs/ai_context_bundle
 
 # TDD phases
-ai-tdd-red:
+
+# New naming (tdd.*) — legacy ai-* retained for familiarity in messages
+tdd-red:
 	@echo "Red Phase: write failing tests from specs."
-	@echo "Open chat mode: ai-tdd-red and reference docs/ai_context_bundle."
+	@echo "Open chat mode: tdd.red and reference docs/ai_context_bundle."
 
-ai-tdd-green:
+tdd-green:
 	@echo "Green Phase: implement minimal code to pass tests."
-	@echo "Open chat mode: ai-tdd-green and reference docs/ai_context_bundle."
+	@echo "Open chat mode: tdd.green and reference docs/ai_context_bundle."
 
-ai-tdd-refactor:
+tdd-refactor:
 	@echo "Refactor Phase: improve design while keeping tests green."
-	@echo "Open chat mode: ai-tdd-refactor and reference docs/ai_context_bundle."
+	@echo "Open chat mode: tdd.refactor and reference docs/ai_context_bundle."
 
 # Debug phases
-ai-debug-start:
+debug-start:
 	@echo "Debug Start: normalize bug report and plan reproduction."
-	@echo "Open chat mode: ai-debug-start and reference docs/ai_context_bundle."
+	@echo "Open chat mode: debug.start and reference docs/ai_context_bundle."
 
-ai-debug-repro:
+debug-repro:
 	@echo "Debug Repro: write failing test to reproduce the issue."
-	@echo "Open chat mode: ai-debug-repro and reference docs/ai_context_bundle."
+	@echo "Open chat mode: debug.repro and reference docs/ai_context_bundle."
 
-ai-debug-isolate:
+debug-isolate:
 	@echo "Debug Isolate: narrow root cause using diffs/instrumentation."
-	@echo "Open chat mode: ai-debug-isolate and reference docs/ai_context_bundle."
+	@echo "Open chat mode: debug.isolate and reference docs/ai_context_bundle."
 
-ai-debug-fix:
+debug-fix:
 	@echo "Debug Fix: apply minimal change to make tests pass."
-	@echo "Open chat mode: ai-debug-fix and reference docs/ai_context_bundle."
+	@echo "Open chat mode: debug.fix and reference docs/ai_context_bundle."
 
-ai-debug-refactor:
+debug-refactor:
 	@echo "Debug Refactor: clean up the fix and remove instrumentation."
-	@echo "Open chat mode: ai-debug-refactor and reference docs/ai_context_bundle."
+	@echo "Open chat mode: debug.refactor and reference docs/ai_context_bundle."
 
-ai-debug-regress:
+debug-regress:
 	@echo "Debug Regress: run full regression to ensure stability."
-	@echo "Open chat mode: ai-debug-regress and reference docs/ai_context_bundle."
+	@echo "Open chat mode: debug.regress and reference docs/ai_context_bundle."
 
 # Validate with existing repo tooling (safe-noop if pnpm/Nx absent)
 ai-validate:

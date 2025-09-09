@@ -1,6 +1,9 @@
 ---
 description: "General guidelines for Copilot and AI chat"
 applyTo: "**"
+kind: instructions
+domain: general
+precedence: 50
 ---
 
 # General Guidelines

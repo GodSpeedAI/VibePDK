@@ -18,7 +18,7 @@ Refs: DEV-PRD-001, DEV-ADR-001, DEV-SDS-001, DEV-TS-001
 - devkit
   - `.github/instructions`: docs, dev-docs, src, security.
   - `.github/prompts`: spec/traceability workflow (bootstrap, implement/change feature, traceability-matrix, transcript converters, test-hardening, housekeeping).
-  - `.github/spec-driven.chatmode.md`, `spec-driven-lean.chatmode.md` (at `.github/` root).
+  - `.github/spec.wide.chatmode.md`, `spec.lean.chatmode.md` (at `.github/` root).
   - `.vscode/settings.json`: explicit codeGeneration.instructions list (golden specs + instruction files), commit message guidance, agent mode enabled.
 
 ## Decisions (copy vs compose)
@@ -36,7 +36,7 @@ Refs: DEV-PRD-001, DEV-ADR-001, DEV-SDS-001, DEV-TS-001
 - Normalize frontmatter/title and budgets; keep prompts small and token-efficient.
 
 3) Chat modes
-- Add `spec-driven.chatmode.md` and `spec-driven-lean.chatmode.md` into vibePDK’s `.github/chatmodes/` (rename if needed to avoid collisions).
+- Add `spec.wide.chatmode.md` and `spec.lean.chatmode.md` into vibePDK’s `.github/chatmodes/`.
 - Keep existing personas; spec-driven modes become “how to work” overlays rather than replacing personas.
 
 4) Settings

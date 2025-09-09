@@ -27,6 +27,9 @@ jobs:
       - name: Plan prompts (budget check)
         run: |
           for f in .github/prompts/*.prompt.md; do [ -e "$f" ] || continue; node tools/prompt/plan_preview.js "$f"; done
+      - name: Plan prompts (accurate tokenizer)
+        run: |
+          for f in .github/prompts/*.prompt.md; do [ -e "$f" ] || continue; PROMPT_TOKENIZER=accurate node tools/prompt/plan_preview.js --accurate "$f"; done
       - name: Run unit tests
         run: pnpm run test:node
       - name: Environment audit

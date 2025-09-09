@@ -1,6 +1,9 @@
 ---
 description: "Commit message guidance with traceability"
 applyTo: "**"
+kind: instructions
+domain: docs
+precedence: 15
 ---
 
 # Commit Message Guidelines
@@ -20,16 +23,16 @@ Content focus
 - Mention updated or added tests and docs.
 
 Tone & visuals
-- Use meaningful emojis sparingly (✨ for features, 🐛 for bugfixes, ♻️ for refactors).
+- Use meaningful emojis sparingly (✨ for features, 🐛 for bugfixes, ♻️ for refactors, ⚠️ for risks).
 - Include diagrams (e.g., mermaid) only when they clarify complex architectural changes.
 
 Traceability & examples
 - Include at least one spec ID when applicable to align with commit-msg hooks and review traceability.
 - Examples:
-  - feat(auth): add login rate limiter (PRD-042, DEV-123)
+  - ✨feat(auth): add login rate limiter (PRD-042, DEV-123)
     - Adds rate limiter + unit tests; updates docs/auth.md
-    - Risk: potential login latency spike; Mitigation: gradual rollout with monitoring
-  - fix(api): handle null payloads (DEV-456)
+    - ⚠️Risk: potential login latency spike; Mitigation: gradual rollout with monitoring
+  - 🐛fix(api): handle null payloads (DEV-456)
     - Prevents 500s on malformed requests; adds regression tests
 
 Formatting tips

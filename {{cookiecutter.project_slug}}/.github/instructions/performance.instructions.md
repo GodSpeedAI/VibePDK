@@ -1,6 +1,9 @@
 ---
 description: "Performance and efficiency guidelines"
 applyTo: "**"
+kind: instructions
+domain: performance
+precedence: 34
 ---
 
 # Performance Guidelines

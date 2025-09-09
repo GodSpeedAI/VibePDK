@@ -1,4 +1,8 @@
 ---
+kind: prompt
+domain: testing
+task: hardening
+budget: M
 mode: 'agent'
 model: GPT-4.1
 tools: ['codebase', 'search']

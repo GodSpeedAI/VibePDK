@@ -1,6 +1,9 @@
 ---
 description: "Developer-centric docs guardrails"
 applyTo: "docs/dev_*"
+kind: instructions
+domain: docs
+precedence: 31
 ---
 
 # Developer-Centric Docs Guardrails

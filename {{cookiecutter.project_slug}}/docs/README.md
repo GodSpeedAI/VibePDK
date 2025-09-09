@@ -57,8 +57,8 @@ This repository includes role chat modes plus spec‑driven modes located in `.g
 
 Spec‑driven and onboarding chat modes:
 
-* Spec‑Driven Mode (wide) – `.github/chatmodes/spec-driven.chatmode.md`.
-* Spec‑Driven Lean – `.github/chatmodes/spec-driven-lean.chatmode.md`.
+* Spec‑Driven Mode (wide) – `.github/chatmodes/spec.wide.chatmode.md`.
+* Spec‑Driven Lean – `.github/chatmodes/spec.lean.chatmode.md`.
 * Onboarding Mode – `.github/chatmodes/onboarding.chatmode.md`.
 
 To enable discovery of custom chat modes, our `settings.json` includes a `chat.modeFilesLocations` entry pointing to `.github/chatmodes`. You can add more chat modes by creating additional `.chatmode.md` files in this folder and defining the desired tools, model, and instructions.
@@ -104,7 +104,7 @@ Performance is addressed through the [performance instructions](../.github/instr
 - Plan/apply:
 	- Preview: `just plan-techstack`
 	- Apply: `just sync-techstack`
-- Prompt-assisted review: `.github/prompts/sync-techstack.prompt.md` reconciles PRD/SDS/ADR/TS with the stack and proposes deterministic updates to cookiecutter/generators.
+- Prompt-assisted review: `.github/prompts/tool.techstack.sync.prompt.md` reconciles PRD/SDS/ADR/TS with the stack and proposes deterministic updates to cookiecutter/generators.
 
 ## Commit messages and traceability
 
@@ -150,8 +150,8 @@ To use the spec‑driven or onboarding chat modes in VS Code:
 1. Open the Chat view.
 2. Click the mode picker at the top (it shows your current mode).
 3. Choose one of:
-	- Spec‑Driven Mode — `.github/chatmodes/spec-driven.chatmode.md`
-	- Spec‑Driven Lean — `.github/chatmodes/spec-driven-lean.chatmode.md`
+	- Spec‑Driven Mode — `.github/chatmodes/spec.wide.chatmode.md`
+	- Spec‑Driven Lean — `.github/chatmodes/spec.lean.chatmode.md`
 	- Onboarding Mode — `.github/chatmodes/onboarding.chatmode.md`
 4. Start chatting. The mode’s instructions, tools, and model are applied automatically.
 

@@ -55,8 +55,8 @@ Observations
     - Only add new prompts when an equivalent doesn’t already exist; mark them with a `vibecoder-` prefix.
     - Examples: `vibecoder-orchestrator.prompt.md` (if no orchestrator present), `vibecoder-tasks.prompt.md` (if needed).
 - Chat modes
-    - Add ai‑TDD chat modes: `.github/chatmodes/ai-tdd-red.chatmode.md`, `ai-tdd-green.chatmode.md`, `ai-tdd-refactor.chatmode.md`.
-    - Add ai‑debug chat modes: `ai-debug-start.chatmode.md`, `ai-debug-repro.chatmode.md`, `ai-debug-isolate.chatmode.md`, `ai-debug-fix.chatmode.md`, `ai-debug-refactor.chatmode.md`, `ai-debug-regress.chatmode.md`.
+    - Add TDD chat modes: `.github/chatmodes/tdd.red.chatmode.md`, `tdd.green.chatmode.md`, `tdd.refactor.chatmode.md`.
+    - Add Debug chat modes: `debug.start.chatmode.md`, `debug.repro.chatmode.md`, `debug.isolate.chatmode.md`, `debug.fix.chatmode.md`, `debug.refactor.chatmode.md`, `debug.regress.chatmode.md`.
     - Each chat mode references the merged prompts and points to the context bundle location.
 
 Rationale: Chat modes are the Copilot‑native substitute for vibecoder’s Aider/RooCode flows.

@@ -4,8 +4,8 @@
 Pick the right mode for the job; each links to prompts and the context bundle.
 
 ## Modes
-- TDD: `ai-tdd-red`, `ai-tdd-green`, `ai-tdd-refactor`
-- Debug: `ai-debug-start`, `ai-debug-repro`, `ai-debug-isolate`, `ai-debug-fix`, `ai-debug-refactor`, `ai-debug-regress`
+- TDD: `tdd.red`, `tdd.green`, `tdd.refactor`
+- Debug: `debug.start`, `debug.repro`, `debug.isolate`, `debug.fix`, `debug.refactor`, `debug.regress`
 
 ## Steps
 1) Run `just ai-context-bundle`

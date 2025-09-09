@@ -1,6 +1,9 @@
 ---
 description: "Source code guardrails"
 applyTo: "src/**"
+kind: instructions
+domain: src
+precedence: 32
 ---
 
 # Code Guardrails (Source-only)

@@ -11,8 +11,8 @@ Welcome to the all-in-one guide for using VS Code + GitHub Copilot in this templ
 - Output: `docs/ai_context_bundle/`
 
 2) Pick a mode
-- TDD phases: ai-tdd-red → ai-tdd-green → ai-tdd-refactor
-- Debug phases: ai-debug-start → repro → isolate → fix → refactor → regress
+- TDD phases: tdd.red → tdd.green → tdd.refactor
+- Debug phases: debug.start → repro → isolate → fix → refactor → regress
 
 3) Validate
 - Run: `just ai-validate` (safe NO-OP if scripts/projects missing)

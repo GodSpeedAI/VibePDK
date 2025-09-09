@@ -33,9 +33,9 @@ See: `docs/spec_index.md`, `docs/dev_spec_index.md`, and `docs/traceability_matr
 
 ## Using AI workflows (TDD, Debug)
 - Chat modes added under `.github/chatmodes/`:
-  - TDD: `ai-tdd-red`, `ai-tdd-green`, `ai-tdd-refactor`
-  - Debug: `ai-debug-start`, `ai-debug-repro`, `ai-debug-isolate`, `ai-debug-fix`, `ai-debug-refactor`, `ai-debug-regress`
-- Prompts: `.github/prompts/vibecoder-tdd.prompt.md`, `.github/prompts/vibecoder-debug.prompt.md` (kept concise; align to specs and CALM).
+  - TDD: `tdd.red`, `tdd.green`, `tdd.refactor`
+  - Debug: `debug.start`, `debug.repro`, `debug.isolate`, `debug.fix`, `debug.refactor`, `debug.regress`
+- Prompts: `.github/prompts/tdd.workflow.prompt.md`, `.github/prompts/debug.workflow.prompt.md` (kept concise; align to specs and CALM).
 - Context bundle: run `just ai-context-bundle` to generate `docs/ai_context_bundle/` (contains CALM + tech stack + key docs). Chat modes reference this path.
 - Validation: `just ai-validate` runs lint/typecheck and optional Nx tests.
 - Scaffolding: `just ai-scaffold name=<generator>` wraps `pnpm exec nx g` (safe if pnpm/Nx missing).

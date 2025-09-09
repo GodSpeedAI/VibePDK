@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# Approximate token counter for prompt files.
-# This script estimates the number of tokens in a prompt file by counting words.
-# While this is not an exact token count (tokenisation differs for each model),
-# it provides a rough metric to gauge prompt length and complexity.
+# Token counter for prompt files.
+# Default: approximate by counting words.
+# Accurate: if PROMPT_TOKENIZER=accurate and Node tokenizer present, use tools/prompt/plan_preview.js
 
-set -euo pipefail
+set -eu
 
 if [[ "$#" -lt 1 ]]; then
   echo "Usage: $0 <prompt-file>" >&2
@@ -17,15 +16,20 @@ if [[ ! -f "${PROMPT_FILE}" ]]; then
   exit 1
 fi
 
+if [[ "${PROMPT_TOKENIZER:-}" == "accurate" ]]; then
+  if command -v node >/dev/null 2>&1; then
+    TOKENS=$(node tools/prompt/plan_preview.js --accurate "${PROMPT_FILE}" 2>/dev/null | sed -n 's/.*tokens=\([0-9]\+\).*/\1/p' || true)
+    if [[ -n "${TOKENS}" ]]; then
+      echo "[measure_tokens] Accurate tokens for ${PROMPT_FILE}: ${TOKENS}"
+      exit 0
+    fi
+  fi
+fi
+
 WORD_COUNT=$(wc -w < "${PROMPT_FILE}")
 CHAR_COUNT=$(wc -c < "${PROMPT_FILE}")
 
 echo "[measure_tokens] Approximate word count for ${PROMPT_FILE}: ${WORD_COUNT}"
 echo "[measure_tokens] Approximate character count for ${PROMPT_FILE}: ${CHAR_COUNT}"
-
-# TODO: For more accurate token counts, integrate with a tokenizer such as
-# tiktoken or the OpenAI API. This is left as an exercise for users who have
-# access to those libraries. Using an approximate metric is still useful for
-# performance analysis and comparison of different prompts.
 
 exit 0

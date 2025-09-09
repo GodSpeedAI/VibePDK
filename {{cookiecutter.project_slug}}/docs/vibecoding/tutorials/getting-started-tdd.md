@@ -14,16 +14,16 @@ Audience: developers new to the AI-enhanced TDD flow in this template.
 
 ## Steps
 1) Red — write a failing test
-- Open chat mode: `ai-tdd-red`
+- Open chat mode: `tdd.red`
 - Provide spec IDs and target: e.g., `PRD-123, ADR-04, SDS-Auth-7`, target `packages/auth`.
 - Let Copilot propose test files and minimal failing tests.
 
 2) Green — make it pass
-- Switch to `ai-tdd-green`
+- Switch to `tdd.green`
 - Implement the minimal change to pass; avoid refactoring.
 
 3) Refactor — improve design
-- Switch to `ai-tdd-refactor`
+- Switch to `tdd.refactor`
 - Remove duplication, improve naming; keep tests green.
 
 ## Tips

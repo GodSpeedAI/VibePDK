@@ -1,4 +1,8 @@
 ---
+kind: prompt
+domain: spec
+task: housekeeping
+budget: S
 mode: 'agent'
 model: GPT-4.1
 tools: ['codebase', 'search']

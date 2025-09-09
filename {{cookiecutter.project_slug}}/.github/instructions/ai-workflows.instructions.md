@@ -1,9 +1,17 @@
+---
+description: "AI workflows policy (TDD/Debug)"
+applyTo: "**"
+kind: instructions
+domain: ai-workflows
+precedence: 20
+---
+
 # AI Workflows Policy (TDD, Debug)
 
 This policy keeps AI-assisted flows safe, portable, and maintainable.
 
 - Namespacing
-  - Use `ai-*` names for chat modes and Just recipes (e.g., `ai-tdd-red`, `ai-context-bundle`).
+  - Use `ai-*` names for Just recipes (e.g., `ai-context-bundle`). Chat modes now use domain.task pattern (e.g., `tdd.red`, `debug.start`).
 - Prompt dedupe
   - Extend existing prompts where possible. Only add new ones prefixed `vibecoder-`.
   - Cross-link prompts from chat modes; avoid drift by centralizing shared guidance.

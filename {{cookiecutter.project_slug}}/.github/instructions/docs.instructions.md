@@ -1,6 +1,9 @@
 ---
 description: "Docs guardrails for product/developer specifications"
 applyTo: "docs/**"
+kind: instructions
+domain: docs
+precedence: 30
 ---
 
 # Documentation Guardrails (Docs-only)
