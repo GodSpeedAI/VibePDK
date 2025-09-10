@@ -20,46 +20,46 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
 
 ## Cycle 1 — Prompt linter: filename taxonomy and required frontmatter
 
-- [ ] Red — add failing Node test to flag missing keys and bad filenames
-  - [ ] Create `tools/prompt/__tests__/lint.taxonomy.spec.ts` (cases: missing title/domain/task/kind; bad filename)
-  - [ ] Run `pnpm test:node` and observe failing assertions
-- [ ] Green — implement taxonomy and required key validation in `tools/prompt/lint.js`
-  - [ ] Validate filename pattern `<domain>.<task>[.<phase>].<kind>.md`
-  - [ ] Require keys: title, description, domain, task, kind (phase optional)
-  - [ ] Run `pnpm test:node` and confirm tests pass
-- [ ] Refactor — extract small validators and keep strict types
-- [ ] Regression — add edge tests (uppercase domain, unexpected kind)
-- [ ] Update checklist — mark Cycle 1 done
+- [x] Red — add failing Node test to flag missing keys and bad filenames
+  - [x] Create `tools/prompt/__tests__/lint.taxonomy.spec.ts` (cases: missing title/domain/task/kind; bad filename)
+  - [x] Run `pnpm test:node` and observe failing assertions
+- [x] Green — implement taxonomy and required key validation in `tools/prompt/lint.js`
+  - [x] Validate filename pattern `<domain>.<task>[.<phase>].<kind>.md`
+  - [x] Require keys: title, description, domain, task, kind (phase optional)
+  - [x] Run `pnpm test:node` and confirm tests pass
+- [x] Refactor — extract small validators and keep strict types
+- [x] Regression — add edge tests (uppercase domain, unexpected kind)
+- [x] Update checklist — mark Cycle 1 done
 
 ---
 
 ## Cycle 2 — Linter: model key must exist in `.github/models.yaml`
 
-- [ ] Red — add failing test for unknown model key (or warn in warn-mode)
-  - [ ] Add `tools/prompt/__tests__/lint.model.spec.ts`
-  - [ ] Run `pnpm test:node` and observe failure
-- [ ] Green — implement model lookup in `lint.js` (load `.github/models.yaml`)
-  - [ ] Default to warn (config flag enables error mode)
-  - [ ] Run `pnpm test:node` and confirm pass
-- [ ] Refactor — cache models; tighten types
-- [ ] Regression — test with a retired model
-- [ ] Update checklist — mark Cycle 2 done
+- [x] Red — add failing test for unknown model key (or warn in warn-mode)
+  - [x] Add `tools/prompt/__tests__/lint.model.spec.ts`
+  - [x] Run `pnpm test:node` and observe failure
+- [x] Green — implement model lookup in `lint.js` (load `.github/models.yaml`)
+  - [x] Default to warn (config flag enables error mode)
+  - [x] Run `pnpm test:node` and confirm pass
+- [x] Refactor — cache models; tighten types
+- [x] Regression — test with a retired model
+- [x] Update checklist — mark completed tasks
 
 ---
 
 ## Cycle 3 — Linter: multipart Traceability IDs and thread
 
-- [ ] Red — add failing tests for `matrix_ids` array patterns and required `thread`
-  - [ ] Create `tools/prompt/__tests__/lint.matrix_ids.spec.ts`
-  - [ ] Include cases: accepts ADR/ARD/PRD/SDS/TS/TASK and DEV-* variants; rejects bad patterns; requires thread
-  - [ ] Run `pnpm test:node` and observe failure
-- [ ] Green — implement `matrix_ids` and `thread` validation in `lint.js`
-  - [ ] Use pattern `^(ADR|ARD|PRD|SDS|TS|TASK|DEV-ADR|DEV-PRD|DEV-SDS)-\d{3,4}$`
-  - [ ] Back-compat: if singular `id` exists, normalize to `matrix_ids: [id]`
-  - [ ] Run `pnpm test:node` and confirm pass
-- [ ] Refactor — centralize regex and helpers
-- [ ] Regression — add docs-only case (see Cycle 6)
-- [ ] Update checklist — mark Cycle 3 done
+- [x] Red — add failing tests for `matrix_ids` array patterns and required `thread`
+  - [x] Create `tools/prompt/__tests__/lint.matrix_ids.spec.ts`
+  - [x] Include cases: accepts ADR/ARD/PRD/SDS/TS/TASK and DEV-* variants; rejects bad patterns; requires thread
+  - [x] Run `pnpm test:node` and observe failure
+- [x] Green — implement `matrix_ids` and `thread` validation in `lint.js`
+  - [x] Use pattern `^(ADR|ARD|PRD|SDS|TS|TASK|DEV-ADR|DEV-PRD|DEV-SDS)-\d{3,4}$`
+  - [x] Back-compat: if singular `id` exists, normalize to `matrix_ids: [id]`
+  - [x] Run `pnpm test:node` and confirm pass
+- [x] Refactor — centralize regex and helpers
+- [x] Regression — add docs-only case (see Cycle 6)
+- [x] Update checklist — mark Cycle 3 done
 
 ---
 
@@ -90,7 +90,7 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
   - [ ] Add `spec-tasks THREAD=`
   - [ ] Add `prompt-lint` → `node tools/prompt/lint.js ...`
   - [ ] Add `spec-matrix` → `node tools/spec/matrix.js`
-  - [ ] Optionally mirror with pnpm scripts in `{{cookiecutter.project_slug}}/package.json`
+  - [ ] Mirror with pnpm scripts in `{{cookiecutter.project_slug}}/package.json`
   - [ ] Run `just --list` and `pnpm test:node` and confirm pass
 - [ ] Refactor — DRY file-copy logic (bash or Node helper)
 - [ ] Regression — test error on unknown FAMILY
@@ -125,7 +125,7 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
   - [ ] Add `{{cookiecutter.project_slug}}/.github/instructions/ai-workflows.constitution.instructions.md`
   - [ ] Update linter to respect env/config: start WARN (non-block), support ERROR mode
   - [ ] Run `pnpm test:node` and confirm pass
-- [ ] Refactor — config via env or rc file; document
+- [ ] Refactor — config via env or rc file document via direnv;
 - [ ] Regression — ensure gating escalates correctly under flag
 - [ ] Update checklist — mark Cycle 7 done
 
@@ -244,7 +244,7 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
 
 ---
 
-## Optional: command run tasks
+## command run tasks
 
 - [ ] Detect legacy names (no writes)
   - [ ] Run:

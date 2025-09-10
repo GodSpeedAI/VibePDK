@@ -12,12 +12,12 @@ description: 'Change a feature (add/update/remove) with spec-first traceability 
 # Change Feature (Add / Update / Remove) — Spec & DX Synchronized
 
 ## Inputs
-- Operation: {{ '{{OP}}' }}  # one of: add | update | remove
-- Feature name: {{ '{{FEATURE_NAME}}' }}
-- Product IDs impacted (existing or new): {{ '{{PRD_IDS}}' }} {{ '{{ADR_IDS}}' }} {{ '{{SDS_IDS}}' }} {{ '{{TS_IDS}}' }}
-- Developer IDs impacted (optional/new): {{ '{{DEV_IDS}}' }}
-- Rationale / business outcome: {{ '{{RATIONALE}}' }}
-- Constraints / non-goals: {{ '{{CONSTRAINTS}}' }}
+- Operation: { {OP} }  # one of: add | update | remove
+- Feature name: { {FEATURE_NAME} }
+- Product IDs impacted (existing or new): { {PRD_IDS} } { {ADR_IDS} } { {SDS_IDS} } { {TS_IDS} }
+- Developer IDs impacted (optional/new): { {DEV_IDS} }
+- Rationale / business outcome: { {RATIONALE} }
+- Constraints / non-goals: { {CONSTRAINTS} }
 
 ## Policy
 - Read indexes first. Load only referenced sections unless gaps appear.
