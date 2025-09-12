@@ -1,6 +1,6 @@
 // Unit tests for Just recipes functionality
 // Implements TDD approach for spec-kit integration Cycle 5
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import assert from 'node:assert';
@@ -41,39 +41,43 @@ function cleanupTestDir() {
 
 // Helper function to run spec_scaffold.sh and capture output/exit code
 function runScaffoldScript(args: string[]): { stdout: string; stderr: string; code: number | null } {
-  try {
-    const stdout = execSync(`bash ${scriptPath} ${args.join(' ')}`, {
-      encoding: 'utf8',
-      cwd: testDir,
-      stdio: ['ignore', 'pipe', 'pipe']
-    });
-    return { stdout, stderr: '', code: 0 };
-  } catch (error: any) {
-    return {
-      stdout: error.stdout?.toString() || '',
-      stderr: error.stderr?.toString() || '',
-      code: error.status || 1
-    };
-  }
+  const result = spawnSync('bash', [scriptPath, ...args], {
+    encoding: 'utf8',
+    cwd: testDir,
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
+  return {
+    stdout: result.stdout || '',
+    stderr: result.stderr || '',
+    code: result.status
+  };
 }
 
 // Test functions
 function testSpecFeatureRecipe() {
   // Test valid feature spec creation
-  const result = runScaffoldScript([
-    join(templatesDir, 'spec.feature.template.md'),
-    docsSpecsDir,
+  const args = [
+    '.github/prompts/spec.feature.template.md', // Relative to testDir
+    'docs/specs', // Relative to testDir
     'thread-123',
     'TestFeature',
     '', // family
     'prd-456' // prd_id
-  ]);
+  ];
+  console.log('Test arguments:', args);
+  console.log('Number of arguments:', args.length);
+
+  const result = runScaffoldScript(args);
+
+  console.log('Result code:', result.code);
+  console.log('Result stdout:', result.stdout);
+  console.log('Result stderr:', result.stderr);
 
   assert.strictEqual(result.code, 0, 'Should exit with code 0 for valid feature spec');
   assert(result.stdout.includes('Scaffolded'), 'Should output success message');
-  assert(existsSync(join(docsSpecsDir, 'spec.md')), 'Should create spec.md file');
+  assert(existsSync(join(docsSpecsDir, 'thread-123', 'spec.md')), 'Should create spec.md file in thread directory');
 
-  const content = readFileSync(join(docsSpecsDir, 'spec.md'), 'utf8');
+  const content = readFileSync(join(docsSpecsDir, 'thread-123', 'spec.md'), 'utf8');
   assert(content.includes('TestFeature'), 'Should replace FEATURE_NAME');
   assert(content.includes('thread-123'), 'Should replace THREAD_ID');
   assert(content.includes('prd-456'), 'Should replace PRD_ID');
@@ -86,8 +90,8 @@ function testSpecPlanRecipe() {
 
   families.forEach((family, index) => {
     const args = [
-      join(templatesDir, `spec.plan.${family}.prompt.md`),
-      docsSpecsDir,
+      `.github/prompts/spec.plan.${family}.prompt.md`, // Relative to testDir
+      'docs/specs', // Relative to testDir
       'thread-123',
       'TestFeature',
       family
@@ -105,9 +109,9 @@ function testSpecPlanRecipe() {
     const result = runScaffoldScript(args);
     assert.strictEqual(result.code, 0, `Should exit with code 0 for valid ${family} plan spec`);
     assert(result.stdout.includes('Scaffolded'), `Should output success message for ${family}`);
-    assert(existsSync(join(docsSpecsDir, `plan.${family}.md`)), `Should create plan.${family}.md file`);
+    assert(existsSync(join(docsSpecsDir, 'thread-123', `plan.${family}.md`)), `Should create plan.${family}.md file in thread directory`);
 
-    const content = readFileSync(join(docsSpecsDir, `plan.${family}.md`), 'utf8');
+    const content = readFileSync(join(docsSpecsDir, 'thread-123', `plan.${family}.md`), 'utf8');
     assert(content.includes('TestFeature'), `Should replace FEATURE_NAME for ${family}`);
     assert(content.includes('thread-123'), `Should replace THREAD_ID for ${family}`);
   });
@@ -116,8 +120,8 @@ function testSpecPlanRecipe() {
 function testSpecTasksRecipe() {
   // Test valid tasks spec creation
   const result = runScaffoldScript([
-    join(templatesDir, 'spec.tasks.template.md'),
-    docsSpecsDir,
+    '.github/prompts/spec.tasks.template.md', // Relative to testDir
+    'docs/specs', // Relative to testDir
     'thread-123',
     'TestFeature',
     '', // family
@@ -126,22 +130,66 @@ function testSpecTasksRecipe() {
 
   assert.strictEqual(result.code, 0, 'Should exit with code 0 for valid tasks spec');
   assert(result.stdout.includes('Scaffolded'), 'Should output success message');
-  assert(existsSync(join(docsSpecsDir, 'tasks.md')), 'Should create tasks.md file');
+  assert(existsSync(join(docsSpecsDir, 'thread-123', 'tasks.md')), 'Should create tasks.md file in thread directory');
 
-  const content = readFileSync(join(docsSpecsDir, 'tasks.md'), 'utf8');
+  const content = readFileSync(join(docsSpecsDir, 'thread-123', 'tasks.md'), 'utf8');
   assert(content.includes('TestFeature'), 'Should replace FEATURE_NAME');
   assert(content.includes('thread-123'), 'Should replace THREAD_ID');
   assert(content.includes('task-789'), 'Should replace TASK_ID');
 }
 
 function testPromptLintRecipe() {
-  // This test will be implemented after the recipe is created
-  assert.ok(true);
+  // Test that prompt-lint recipe exists and delegates to pnpm prompt:lint
+  // This recipe is handled by Just directly, not by spec_scaffold.sh
+  const justfileContent = readFileSync(join(__dirname, '../../justfile'), 'utf8');
+  assert(justfileContent.includes('prompt-lint:'), 'prompt-lint recipe should exist in justfile');
+  assert(justfileContent.includes('pnpm run prompt:lint'), 'prompt-lint should delegate to pnpm run prompt:lint');
 }
 
 function testSpecMatrixRecipe() {
-  // This test will be implemented after the recipe is created
-  assert.ok(true);
+  // Test that spec-matrix recipe exists and delegates to pnpm spec:matrix
+  // This recipe is handled by Just directly, not by spec_scaffold.sh
+  const justfileContent = readFileSync(join(__dirname, '../../justfile'), 'utf8');
+  assert(justfileContent.includes('spec-matrix:'), 'spec-matrix recipe should exist in justfile');
+  assert(justfileContent.includes('pnpm run spec:matrix'), 'spec-matrix should delegate to pnpm run spec:matrix');
+}
+
+function testPromptLintWithErrors() {
+  // Test error handling for prompt-lint when linting fails
+  // Create a malformed prompt file to trigger lint errors
+  const malformedPrompt = join(templatesDir, 'malformed.prompt.md');
+  writeFileSync(malformedPrompt, 'No frontmatter\nNo title', 'utf8');
+
+  // Since prompt-lint runs on all files, we need to test the lint tool directly
+  // This is more of an integration test, but we can simulate it
+  const lint = require('../../tools/prompt/lint');
+  const result = lint.lintPromptFile(malformedPrompt);
+  assert.strictEqual(result.ok, false, 'Malformed prompt should fail linting');
+  assert(result.findings.length > 0, 'Should have lint findings for malformed prompt');
+}
+
+function testSpecMatrixOutput() {
+  // Test that spec-matrix produces expected output
+  // This would typically be an integration test, but we can test the matrix tool
+  const matrix = require('../../tools/spec/matrix');
+  const testDocsDir = join(testDir, 'docs');
+  mkdirSync(testDocsDir, { recursive: true });
+
+  // Create a test spec file with matrix IDs
+  const specFile = join(testDocsDir, 'test.spec.md');
+  writeFileSync(specFile, `---
+title: Test Spec
+matrix_ids: [PRD-001, ADR-002]
+thread: test-thread
+---
+# Test Spec
+Content with PRD-001 and ADR-002 references.
+`, 'utf8');
+
+  const rows = matrix.buildMatrix(testDir);
+  assert(rows.length > 0, 'Should find matrix IDs in test docs');
+  assert(rows.some((row: any) => row.id === 'PRD-001'), 'Should contain PRD-001');
+  assert(rows.some((row: any) => row.id === 'ADR-002'), 'Should contain ADR-002');
 }
 
 function testSpecPlanUnknownFamily() {
@@ -162,8 +210,8 @@ function testSpecPlanUnknownFamily() {
 function testMissingRequiredParameters() {
   // Test error handling for missing PRD_ID in feature template
   const result = runScaffoldScript([
-    join(templatesDir, 'spec.feature.template.md'),
-    docsSpecsDir,
+    '.github/prompts/spec.feature.template.md', // Relative to testDir
+    'docs/specs', // Relative to testDir
     'thread-123',
     'TestFeature'
     // Missing PRD_ID parameter
@@ -176,8 +224,8 @@ function testMissingRequiredParameters() {
 function testMissingFamilyForPlan() {
   // Test error handling for missing family in plan template
   const result = runScaffoldScript([
-    join(templatesDir, 'spec.plan.adr.prompt.md'),
-    docsSpecsDir,
+    '.github/prompts/spec.plan.adr.prompt.md', // Relative to testDir
+    'docs/specs', // Relative to testDir
     'thread-123',
     'TestFeature'
     // Missing family parameter
@@ -190,8 +238,8 @@ function testMissingFamilyForPlan() {
 function testMissingAdrIdForAdrPlan() {
   // Test error handling for missing ADR_ID in ADR plan template
   const result = runScaffoldScript([
-    join(templatesDir, 'spec.plan.adr.prompt.md'),
-    docsSpecsDir,
+    '.github/prompts/spec.plan.adr.prompt.md', // Relative to testDir
+    'docs/specs', // Relative to testDir
     'thread-123',
     'TestFeature',
     'adr'
@@ -205,8 +253,8 @@ function testMissingAdrIdForAdrPlan() {
 function testMissingTaskIdForTasks() {
   // Test error handling for missing TASK_ID in tasks template
   const result = runScaffoldScript([
-    join(templatesDir, 'spec.tasks.template.md'),
-    docsSpecsDir,
+    '.github/prompts/spec.tasks.template.md', // Relative to testDir
+    'docs/specs', // Relative to testDir
     'thread-123',
     'TestFeature'
     // Missing TASK_ID parameter

@@ -104,19 +104,19 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
 
 ## Cycle 6 — Matrix: link by `thread`, aggregate by `matrix_ids`, docs-only support
 
-- [ ] Red — add failing Node tests for `tools/spec/matrix.js`
-  - [ ] Create `tools/spec/__tests__/matrix.spec.ts`
-  - [ ] Include cases:
-    - [ ] Links spec/plan/tasks by same `thread`
-    - [ ] Aggregates contributing artifacts per ID in `matrix_ids`
-    - [ ] Warns if triplet incomplete for non-docs-only threads
-    - [ ] Accepts missing tasks when `docs_only: true` or `phase: docs`
-  - [ ] Run `pnpm test:node` and observe failure
-- [ ] Green — implement behavior in `matrix.js`
-  - [ ] Run `pnpm test:node` and confirm pass
-- [ ] Refactor — extract parser; add types
-- [ ] Regression — handle multiple families on same thread
-- [ ] Update checklist — mark Cycle 6 done
+- [x] Red — add failing Node tests for `tools/spec/matrix.js`
+  - [x] Create `tools/spec/__tests__/matrix.spec.ts` (moved to `tests/unit/matrix.test.ts` for better test organization)
+  - [x] Include cases:
+    - [x] Links spec/plan/tasks by same `thread`
+    - [x] Aggregates contributing artifacts per ID in `matrix_ids`
+    - [x] Warns if triplet incomplete for non-docs-only threads
+    - [x] Accepts missing tasks when `docs_only: true` or `phase: docs`
+  - [x] Run `pnpm test:node` and observe failure
+- [x] Green — implement behavior in `matrix.js`
+  - [x] Run `pnpm test:node` and confirm pass
+- [x] Refactor — extract parser; add types (created `matrix.d.ts` for TypeScript support)
+- [x] Regression — handle multiple families on same thread (via thread-based linking)
+- [x] Update checklist — mark Cycle 6 done
 
 ---
 

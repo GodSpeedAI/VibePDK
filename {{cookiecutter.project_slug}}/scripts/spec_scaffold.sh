@@ -20,6 +20,7 @@ usage() {
   exit 1
 }
 
+
 # Check arguments
 if [[ $# -lt 4 ]]; then
   usage
@@ -47,7 +48,10 @@ mkdir -p "$OUTPUT_DIR"
 
 # Determine output filename based on template type
 if [[ "$TEMPLATE" == *"spec.feature.template.md" ]]; then
-  OUTPUT_FILE="$OUTPUT_DIR/spec.md"
+  # Create thread-specific directory for feature specs
+  THREAD_DIR="$OUTPUT_DIR/$THREAD"
+  mkdir -p "$THREAD_DIR"
+  OUTPUT_FILE="$THREAD_DIR/spec.md"
   if [[ -z "$PRD_ID" ]]; then
     echo "Error: PRD_ID is required for feature templates" >&2
     exit 1
@@ -61,7 +65,10 @@ elif [[ "$TEMPLATE" == *"spec.plan"*".prompt.md" ]]; then
   # Validate family type
   case "$FAMILY" in
     adr|prd|sds|ts|task)
-      OUTPUT_FILE="$OUTPUT_DIR/plan.$FAMILY.md"
+      # Create thread-specific directory for plan specs
+      THREAD_DIR="$OUTPUT_DIR/$THREAD"
+      mkdir -p "$THREAD_DIR"
+      OUTPUT_FILE="$THREAD_DIR/plan.$FAMILY.md"
       ;;
     *)
       echo "Error: Unknown family '$FAMILY'. Supported families: adr, prd, sds, ts, task" >&2
@@ -75,7 +82,10 @@ elif [[ "$TEMPLATE" == *"spec.plan"*".prompt.md" ]]; then
     exit 1
   fi
 elif [[ "$TEMPLATE" == *"spec.tasks.template.md" ]]; then
-  OUTPUT_FILE="$OUTPUT_DIR/tasks.md"
+  # Create thread-specific directory for tasks specs
+  THREAD_DIR="$OUTPUT_DIR/$THREAD"
+  mkdir -p "$THREAD_DIR"
+  OUTPUT_FILE="$THREAD_DIR/tasks.md"
   if [[ -z "$TASK_ID" ]]; then
     echo "Error: TASK_ID is required for tasks templates" >&2
     exit 1
