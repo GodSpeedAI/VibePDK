@@ -6,6 +6,9 @@
     "license": "MIT",
     "scripts": {
         "test:node": "tsx tools/test/run_node_tests.ts",
+        "spec:feature": "bash scripts/spec_scaffold.sh .github/prompts/spec.feature.template.md docs/specs \"$1\" \"$2\" \"\" \"$3\" \"\" \"\" \"\" \"\"",
+        "spec:plan": "bash scripts/spec_scaffold.sh .github/prompts/spec.plan.$3.prompt.md docs/specs \"$1\" \"$2\" \"$3\" \"$4\" \"$5\" \"$6\" \"$7\" \"$8\"",
+        "spec:tasks": "bash scripts/spec_scaffold.sh .github/prompts/spec.tasks.template.md docs/specs \"$1\" \"$2\" \"\" \"\" \"\" \"\" \"\" \"$3\"",
         "spec:matrix": "node tools/spec/matrix.js",
         "prompt:lint": "for f in .github/prompts/*.prompt.md; do node tools/prompt/lint.js \"$f\" || exit 1; done",
         "prompt:plan": "for f in .github/prompts/*.prompt.md; do node tools/prompt/plan_preview.js \"$f\" || exit 1; done",

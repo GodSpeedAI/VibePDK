@@ -65,36 +65,40 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
 
 ## Cycle 4 — Add spec/plan/tasks templates (family-aware)
 
-- [ ] Red — add pytest expecting new template files to exist
-  - [ ] Add `tests/test_cookiecutter_generation.py::test_templates_exist` asserting:
-    - [ ] `{{cookiecutter.project_slug}}/.github/prompts/spec.feature.template.md`
-    - [ ] `{{cookiecutter.project_slug}}/.github/prompts/spec.plan.{adr,prd,sds,ts,task}.prompt.md`
-    - [ ] `{{cookiecutter.project_slug}}/.github/prompts/spec.tasks.template.md`
-  - [ ] Run `uv run pytest -q -k templates_exist` and observe failure
-- [ ] Green — add template files with frontmatter (title, domain=spec, task, kind=template|prompt, matrix_ids, thread)
-  - [ ] Run `uv run pytest -q -k templates_exist` and confirm pass
-- [ ] Refactor — keep templates concise; reference Constitution instruction
-- [ ] Regression — add pytest checking frontmatter validity via linter
-- [ ] Update checklist — mark Cycle 4 done
+- [x] Red — add pytest expecting new template files to exist
+  - [x] Add `tests/test_cookiecutter_generation.py::test_templates_exist` asserting:
+    - [x] `{{cookiecutter.project_slug}}/.github/prompts/spec.feature.template.md`
+    - [x] `{{cookiecutter.project_slug}}/.github/prompts/spec.plan.{adr,prd,sds,ts,task}.prompt.md`
+    - [x] `{{cookiecutter.project_slug}}/.github/prompts/spec.tasks.template.md`
+  - [x] Run `uv run pytest -q -k templates_exist` and observe failure
+- [x] Green — add template files with frontmatter (title, domain=spec, task, kind=template|prompt, matrix_ids, thread)
+  - [x] Run `uv run pytest -q -k templates_exist` and confirm pass
+- [x] Diagnose and fix TemplateSyntaxError preventing test execution
+  - [x] Identify root cause: node_modules directory containing GitHub Actions syntax being processed as Jinja2 templates
+  - [x] Remove node_modules directory from template
+  - [x] Verify test now runs correctly
+- [x] Refactor — keep templates concise; reference Constitution instruction
+- [x] Regression — add pytest checking frontmatter validity via linter
+- [x] Update checklist — mark Cycle 4 done
 
 ---
 
 ## Cycle 5 — Just recipes as primary interface; delegate to pnpm/Nx/bash
 
-- [ ] Red — add Node test ensuring scripts exist or Just recipes resolve
-  - [ ] Add `tools/test/__tests__/scripts.spec.ts` asserting scaffold/lint scripts or `just --list` contains expected recipes
-  - [ ] Run `pnpm test:node` and observe failure
-- [ ] Green — implement Just recipes in `{{cookiecutter.project_slug}}/justfile`
-  - [ ] Add `spec-feature THREAD=`
-  - [ ] Add `spec-plan THREAD= FAMILY=` (adr|prd|sds|ts|task)
-  - [ ] Add `spec-tasks THREAD=`
-  - [ ] Add `prompt-lint` → `node tools/prompt/lint.js ...`
-  - [ ] Add `spec-matrix` → `node tools/spec/matrix.js`
-  - [ ] Mirror with pnpm scripts in `{{cookiecutter.project_slug}}/package.json`
-  - [ ] Run `just --list` and `pnpm test:node` and confirm pass
-- [ ] Refactor — DRY file-copy logic (bash or Node helper)
-- [ ] Regression — test error on unknown FAMILY
-- [ ] Update checklist — mark Cycle 5 done
+- [x] Red — add Node test ensuring scripts exist or Just recipes resolve
+  - [x] Add `tools/test/__tests__/scripts.spec.ts` asserting scaffold/lint scripts or `just --list` contains expected recipes
+  - [x] Run `pnpm test:node` and observe failure
+- [x] Green — implement Just recipes in `{{cookiecutter.project_slug}}/justfile`
+  - [x] Add `spec-feature THREAD=`
+  - [x] Add `spec-plan THREAD= FAMILY=` (adr|prd|sds|ts|task)
+  - [x] Add `spec-tasks THREAD=`
+  - [x] Add `prompt-lint` → `node tools/prompt/lint.js ...`
+  - [x] Add `spec-matrix` → `node tools/spec/matrix.js`
+  - [x] Mirror with pnpm scripts in `{{cookiecutter.project_slug}}/package.json`
+  - [x] Run `just --list` and `pnpm test:node` and confirm pass
+- [x] Refactor — DRY file-copy logic (bash or Node helper)
+- [x] Regression — test error on unknown FAMILY
+- [x] Update checklist — mark Cycle 5 done
 
 ---
 
