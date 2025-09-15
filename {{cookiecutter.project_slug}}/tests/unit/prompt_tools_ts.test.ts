@@ -20,6 +20,10 @@ assert.strictEqual(lint1.ok, true);
 
 const badPrompt = path.join(tmp, 'bad.prompt.md');
 fs.writeFileSync(badPrompt, `No frontmatter\nNo title`, 'utf8');
+// Set gating to error mode to ensure the bad prompt fails
+process.env.PROMPT_LINT_GATING = 'error';
 const lint2 = lint.lintPromptFile(badPrompt);
 assert.strictEqual(lint2.ok, false);
 assert.ok(lint2.findings.length >= 1);
+// Clean up environment variable
+delete process.env.PROMPT_LINT_GATING;

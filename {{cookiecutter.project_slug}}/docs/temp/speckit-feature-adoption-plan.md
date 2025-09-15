@@ -122,16 +122,16 @@ Note: “Spec IDs” refer to Traceability Matrix IDs (ADR/ARD, PRD, SDS, TS, TA
 
 ## Cycle 7 — Constitution & Gates instruction; linter gating modes
 
-- [ ] Red — add linter tests for gating levels (warn vs error)
-  - [ ] Add `tools/prompt/__tests__/lint.gates.spec.ts`
-  - [ ] Run `pnpm test:node` and observe failure
-- [ ] Green — add Constitution instructions and gating
-  - [ ] Add `{{cookiecutter.project_slug}}/.github/instructions/ai-workflows.constitution.instructions.md`
-  - [ ] Update linter to respect env/config: start WARN (non-block), support ERROR mode
-  - [ ] Run `pnpm test:node` and confirm pass
-- [ ] Refactor — config via env or rc file document via direnv;
-- [ ] Regression — ensure gating escalates correctly under flag
-- [ ] Update checklist — mark Cycle 7 done
+- [x] Red — add linter tests for gating levels (warn vs error)
+  - [x] Add `tools/prompt/__tests__/lint.gates.spec.ts`
+  - [x] Run `pnpm test:node` and observe failure
+- [x] Green — add Constitution instructions and gating
+  - [x] Add `{{cookiecutter.project_slug}}/.github/instructions/ai-workflows.constitution.instructions.md`
+  - [x] Update linter to respect env/config: start WARN (non-block), support ERROR mode
+  - [x] Run `pnpm test:node` and confirm pass
+- [x] Refactor — config via env or rc file document via direnv;
+- [x] Regression — ensure gating escalates correctly under flag
+- [x] Update checklist — mark Cycle 7 done
 
 ---
 
