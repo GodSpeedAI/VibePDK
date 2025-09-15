@@ -7,12 +7,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const yaml = require('js-yaml');
+const { loadConfig } = require('./config');
 
 /** Valid file kinds */
 const VALID_KINDS = ['prompt', 'chatmode', 'instructions'];
 
 /** Regex pattern for valid matrix IDs */
 const MATRIX_ID_PATTERN = /^(ADR|ARD|PRD|SDS|TS|TASK|DEV-ADR|DEV-PRD|DEV-SDS)-\d{3,4}$/;
+
 
 /**
  * Extracts YAML frontmatter from markdown text
@@ -109,17 +111,19 @@ function classify(file) {
  * Validates required frontmatter fields based on file kind
  * @param {Object} fields - The parsed frontmatter fields
  * @param {string} kind - The file kind
- * @returns {string[]} Array of validation findings
+ * @returns {Object[]} Array of validation findings with severity and message
  */
 function validateRequiredFields(fields, kind) {
   const findings = [];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
 
-  // Required fields for all valid kinds
-  if (!fields.title) findings.push("Missing frontmatter field: title");
-  if (!fields.description) findings.push("Missing frontmatter field: description");
-  if (!fields.kind) findings.push("Missing frontmatter field: kind");
-  if (!fields.domain) findings.push("Missing frontmatter field: domain");
-  if (kind !== 'instructions' && !fields.task) findings.push("Missing frontmatter field: task");
+  // Required fields for all valid kinds - these are always errors
+  if (!fields.title) findings.push({ severity: defaultSeverity, message: "Missing frontmatter field: title" });
+  if (!fields.description) findings.push({ severity: defaultSeverity, message: "Missing frontmatter field: description" });
+  if (!fields.kind) findings.push({ severity: defaultSeverity, message: "Missing frontmatter field: kind" });
+  if (!fields.domain) findings.push({ severity: defaultSeverity, message: "Missing frontmatter field: domain" });
+  if (kind !== 'instructions' && !fields.task) findings.push({ severity: defaultSeverity, message: "Missing frontmatter field: task" });
 
   return findings;
 }
@@ -128,17 +132,17 @@ function validateRequiredFields(fields, kind) {
  * Validates recommended frontmatter fields based on file kind
  * @param {Object} fields - The parsed frontmatter fields
  * @param {string} kind - The file kind
- * @returns {string[]} Array of recommendation findings
+ * @returns {Object[]} Array of recommendation findings with severity and message
  */
 function validateRecommendedFields(fields, kind) {
   const findings = [];
 
-  // Optional but recommended fields
+  // Optional but recommended fields - these are always warnings
   if ((kind === 'prompt' || kind === 'chatmode') && !fields.budget) {
-    findings.push("Recommend adding frontmatter field: budget (S|M|L)");
+    findings.push({ severity: 'warn', message: "Recommend adding frontmatter field: budget (S|M|L)" });
   }
   if (kind === 'instructions' && !fields.precedence) {
-    findings.push("Recommend adding frontmatter field: precedence");
+    findings.push({ severity: 'warn', message: "Recommend adding frontmatter field: precedence" });
   }
 
   return findings;
@@ -147,10 +151,12 @@ function validateRecommendedFields(fields, kind) {
 /**
  * Validates matrix_ids field against allowed patterns
  * @param {Object} fields - The parsed frontmatter fields
- * @returns {string[]} Array of validation findings
+ * @returns {Object[]} Array of validation findings with severity and message
  */
 function validateMatrixIds(fields) {
   const findings = [];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
 
   // Check for legacy singular id field
   if (fields.id !== undefined && fields.matrix_ids === undefined) {
@@ -159,35 +165,35 @@ function validateMatrixIds(fields) {
       // This is a valid case, no error needed
       return findings;
     } else if (typeof fields.id !== 'string') {
-      findings.push('Legacy field "id" must be a string');
+      findings.push({ severity: defaultSeverity, message: 'Legacy field "id" must be a string' });
       return findings;
     } else {
-      findings.push(`Legacy ID "${fields.id}" does not match pattern ${MATRIX_ID_PATTERN.toString()}`);
+      findings.push({ severity: defaultSeverity, message: `Legacy ID "${fields.id}" does not match pattern ${MATRIX_ID_PATTERN.toString()}` });
       return findings;
     }
   }
 
   // Check for matrix_ids field
   if (fields.matrix_ids === undefined) {
-    findings.push('Missing frontmatter field: matrix_ids');
+    findings.push({ severity: defaultSeverity, message: 'Missing frontmatter field: matrix_ids' });
     return findings;
   }
 
   // Validate matrix_ids is an array
   if (!Array.isArray(fields.matrix_ids)) {
-    findings.push('Field "matrix_ids" must be an array');
+    findings.push({ severity: defaultSeverity, message: 'Field "matrix_ids" must be an array' });
     return findings;
   }
 
   // Validate each matrix_id in the array
   for (const id of fields.matrix_ids) {
     if (typeof id !== 'string') {
-      findings.push('Each item in "matrix_ids" must be a string');
+      findings.push({ severity: defaultSeverity, message: 'Each item in "matrix_ids" must be a string' });
       continue;
     }
 
     if (!MATRIX_ID_PATTERN.test(id)) {
-      findings.push(`Matrix ID "${id}" does not match pattern ${MATRIX_ID_PATTERN.toString()}`);
+      findings.push({ severity: defaultSeverity, message: `Matrix ID "${id}" does not match pattern ${MATRIX_ID_PATTERN.toString()}` });
     }
   }
 
@@ -197,23 +203,25 @@ function validateMatrixIds(fields) {
 /**
  * Validates thread field
  * @param {Object} fields - The parsed frontmatter fields
- * @returns {string[]} Array of validation findings
+ * @returns {Object[]} Array of validation findings with severity and message
  */
 function validateThread(fields) {
   const findings = [];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
 
   if (fields.thread === undefined) {
-    findings.push('Missing frontmatter field: thread');
+    findings.push({ severity: defaultSeverity, message: 'Missing frontmatter field: thread' });
     return findings;
   }
 
   if (typeof fields.thread !== 'string') {
-    findings.push('Field "thread" must be a string');
+    findings.push({ severity: defaultSeverity, message: 'Field "thread" must be a string' });
     return findings;
   }
 
   if (fields.thread.trim() === '') {
-    findings.push('Field "thread" cannot be empty');
+    findings.push({ severity: defaultSeverity, message: 'Field "thread" cannot be empty' });
     return findings;
   }
 
@@ -223,34 +231,40 @@ function validateThread(fields) {
 /**
  * Validates markdown title presence
  * @param {string} text - The markdown text to validate
- * @returns {string[]} Array of title validation findings
+ * @returns {Object[]} Array of title validation findings with severity and message
  */
 function validateTitle(text) {
-  return /^#\s+.+/m.test(text) ? [] : ['Missing H1 title (# ...)'];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
+  return /^#\s+.+/m.test(text) ? [] : [{ severity: defaultSeverity, message: 'Missing H1 title (# ...)' }];
 }
 
 /**
  * Validates frontmatter presence
  * @param {string} raw - The raw frontmatter text
- * @returns {string[]} Array of frontmatter validation findings
+ * @returns {Object[]} Array of frontmatter validation findings with severity and message
  */
 function validateFrontmatterPresence(raw) {
-  return raw ? [] : ['Missing frontmatter (---)'];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
+  return raw ? [] : [{ severity: defaultSeverity, message: 'Missing frontmatter (---)' }];
 }
 
 /**
  * Validates filename pattern and kind
  * @param {string} file - The file path to validate
- * @returns {string[]} Array of filename validation findings
+ * @returns {Object[]} Array of filename validation findings with severity and message
  */
 function validateFilenameAndKind(file) {
   const findings = [];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
   const filenameValidation = validateFilenamePattern(file);
 
   if (!filenameValidation.valid) {
-    findings.push(filenameValidation.reason);
+    findings.push({ severity: defaultSeverity, message: filenameValidation.reason });
   } else if (!VALID_KINDS.includes(filenameValidation.kind)) {
-    findings.push('Unexpected file kind');
+    findings.push({ severity: defaultSeverity, message: 'Unexpected file kind' });
   }
 
   return findings;
@@ -302,21 +316,22 @@ function loadModels() {
  * Validates model field against allowed models from models.yaml
  * @param {Object} fields - The parsed frontmatter fields object
  * @param {string[]} models - Array of valid model names to validate against
- * @returns {string[]} Array of validation findings/error messages
+ * @returns {Object[]} Array of validation findings with severity and message
  */
 function validateModel(fields, models) {
-  /** @type {string[]} */
   const findings = [];
+  const config = loadConfig();
+  const defaultSeverity = config.gating === 'warn' ? 'warn' : 'error';
   const modelValue = fields.model;
 
   // Only validate if model field is present and not null/undefined
   if (modelValue !== undefined && modelValue !== null) {
     if (typeof modelValue !== 'string') {
-      findings.push(`Model field must be a string, got ${typeof modelValue}`);
+      findings.push({ severity: defaultSeverity, message: `Model field must be a string, got ${typeof modelValue}` });
     } else if (modelValue.trim() === '') {
-      findings.push('Model "" not found in .github/models.yaml');
+      findings.push({ severity: defaultSeverity, message: 'Model "" not found in .github/models.yaml' });
     } else if (!models.includes(modelValue)) {
-      findings.push(`Model "${modelValue}" not found in .github/models.yaml`);
+      findings.push({ severity: defaultSeverity, message: `Model "${modelValue}" not found in .github/models.yaml` });
     }
   }
 
@@ -330,38 +345,48 @@ function validateModel(fields, models) {
  */
 function lintPromptFile(file) {
   const text = fs.readFileSync(file, 'utf8');
-  const errors = [];
-  const recommendations = [];
+  const findings = [];
+  const config = loadConfig();
 
-  // Validate basic markdown structure - these are errors
-  errors.push(...validateTitle(text));
+  // Validate basic markdown structure
+  findings.push(...validateTitle(text));
 
   const { fields, raw } = extractFrontmatter(text);
-  errors.push(...validateFrontmatterPresence(raw));
+  findings.push(...validateFrontmatterPresence(raw));
 
   const kind = classify(file);
-  errors.push(...validateFilenameAndKind(file));
+  findings.push(...validateFilenameAndKind(file));
 
-  // Validate required fields and model for valid kinds - these are errors
+  // Validate required fields and model for valid kinds
   if (VALID_KINDS.includes(kind)) {
-    errors.push(...validateRequiredFields(fields, kind));
+    findings.push(...validateRequiredFields(fields, kind));
 
-    // Validate model if present - errors (uses cached models for performance)
+    // Validate model if present
     const models = loadModels();
-    errors.push(...validateModel(fields, models));
+    findings.push(...validateModel(fields, models));
 
-    // Validate matrix_ids and thread - errors (only for spec-related files)
+    // Validate matrix_ids and thread (only for spec-related files)
     if (fields.domain === 'spec' || (fields.task && (fields.task.includes('spec') || fields.task.includes('plan') || fields.task.includes('feature')))) {
-      errors.push(...validateMatrixIds(fields));
-      errors.push(...validateThread(fields));
+      findings.push(...validateMatrixIds(fields));
+      findings.push(...validateThread(fields));
     }
 
-    // Recommended fields are just recommendations, not errors
-    recommendations.push(...validateRecommendedFields(fields, kind));
+    // Recommended fields
+    findings.push(...validateRecommendedFields(fields, kind));
   }
 
-  const findings = [...errors, ...recommendations];
-  return { ok: errors.length === 0, findings };
+  // Determine pass/fail based on gating mode
+  let ok = true;
+  if (config.gating === 'error') {
+    // In error mode, fail only if there are error severity findings
+    const hasErrors = findings.some(finding => finding.severity === 'error');
+    ok = !hasErrors;
+  } else {
+    // In warn mode, always pass (only warnings)
+    ok = true;
+  }
+
+  return { ok, findings };
 }
 
 // Command line interface
@@ -373,12 +398,21 @@ if (require.main === module) {
   }
 
   const res = lintPromptFile(path.resolve(file));
+
+  // Format findings for output with severity prefixes
+  const formattedFindings = res.findings.map(f => {
+    const prefix = f.severity === 'error' ? '[ERROR] ' : '[WARN] ';
+    return prefix + f.message;
+  });
+
   if (!res.ok) {
-    console.error(`[prompt:lint] FAIL ${file}:\n - ${res.findings.join('\n - ')}`);
+    console.error(`[prompt:lint] FAIL ${file}:\n - ${formattedFindings.join('\n - ')}`);
     process.exit(1);
   } else {
-    // If only recommendations present, still PASS
-    console.log(`[prompt:lint] PASS ${file}${res.findings.length ? ' (notes)\n - ' + res.findings.join('\n - ') : ''}`);
+    // In warn mode, we might have warnings but still pass
+    const hasWarnings = res.findings.some(f => f.severity === 'warn');
+    const status = hasWarnings ? 'PASS (with warnings)' : 'PASS';
+    console.log(`[prompt:lint] ${status} ${file}${formattedFindings.length ? '\n - ' + formattedFindings.join('\n - ') : ''}`);
   }
 }
 
