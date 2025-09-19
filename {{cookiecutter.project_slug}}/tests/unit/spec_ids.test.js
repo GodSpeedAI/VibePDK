@@ -11,4 +11,8 @@ assert.ok(res.find(x => x.id === 'DEV-SDS-003'));
 
 assert.strictEqual(validateIdFormat('PRD-123'), true);
 assert.strictEqual(validateIdFormat('DEV-TS-9'), true);
+assert.strictEqual(validateIdFormat('TASK-401'), true);
+assert.strictEqual(validateIdFormat('DEV-TASK-123'), true);
 assert.strictEqual(validateIdFormat('BAD-9'), false);
+
+console.log('✓ All spec_ids tests passed');

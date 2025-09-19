@@ -4,6 +4,89 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { extractIdsFromFile, validateIdFormat } = require('./ids');
 
+// Extract frontmatter from markdown text
+function extractFrontmatter(text) {
+    if (!text || typeof text !== 'string') {
+        return { raw: null, fields: {} };
+    }
+
+    const m = text.match(/^---\n([\s\S]*?)\n---/m);
+    if (!m) return { raw: null, fields: {} };
+
+    const raw = m[1];
+    const fields = {};
+
+    // Skip empty frontmatter
+    if (!raw || raw.trim().length === 0) {
+        return { raw, fields: {} };
+    }
+
+    // Parse simple YAML frontmatter
+    for (const line of raw.split(/\r?\n/)) {
+        const trimmedLine = line.trim();
+        if (!trimmedLine || trimmedLine.startsWith('#')) {
+            continue;
+        }
+
+        // Handle array format: matrix_ids: [PRD-101, SDS-201]
+        if (parseFrontmatterArray(line, fields)) continue;
+
+        // Handle simple key: value format
+        parseFrontmatterSimple(line, fields);
+    }
+    return { raw, fields };
+}
+
+// Helper function to parse array format frontmatter
+function parseFrontmatterArray(line, fields) {
+    const arrayMatch = line.match(/^([A-Za-z0-9_\-]+)\s*:\s*\[([^\]]*)\]/);
+    if (arrayMatch) {
+        const key = arrayMatch[1].trim();
+        const val = arrayMatch[2].trim();
+        if (key === 'matrix_ids' && val) {
+            // Parse array values, removing quotes and whitespace
+            fields[key] = val.split(',').map(item => item.trim().replace(/['"]/g, '')).filter(item => item);
+        }
+        return true;
+    }
+    return false;
+}
+
+// Helper function to parse simple key: value format frontmatter
+function parseFrontmatterSimple(line, fields) {
+    const simpleMatch = line.match(/^([A-Za-z0-9_\-]+)\s*:\s*(.+)$/);
+    if (simpleMatch) {
+        const key = simpleMatch[1].trim();
+        let val = simpleMatch[2].trim();
+
+        // Strip quotes if present
+        val = val.replace(/^['"]|['"]$/g, '');
+
+        if (key && key.length > 0 && val !== undefined) {
+            fields[key] = val;
+        }
+    }
+}
+
+// Extract IDs from frontmatter matrix_ids field
+function extractIdsFromFrontmatter(filePath) {
+    if (!fs.existsSync(filePath)) return [];
+
+    const text = fs.readFileSync(filePath, 'utf8');
+    const { fields } = extractFrontmatter(text);
+    const ids = [];
+
+    if (fields.matrix_ids && Array.isArray(fields.matrix_ids)) {
+        for (const id of fields.matrix_ids) {
+            if (validateIdFormat(id)) {
+                ids.push({ id, type: id.split('-')[0], source: filePath });
+            }
+        }
+    }
+
+    return ids;
+}
+
 function gatherMarkdownFiles(root) {
     const out = [];
     const entries = fs.readdirSync(root, { withFileTypes: true });
@@ -19,20 +102,40 @@ function gatherMarkdownFiles(root) {
     return out;
 }
 
+// Add spec ID to matrix row
+function addSpecIdToMatrix(rows, specId, filePath, rootDir) {
+    if (!validateIdFormat(specId.id)) return;
+
+    const row = rows.get(specId.id) || { artifacts: new Set(), status: 'referenced', notes: '' };
+    row.artifacts.add(path.relative(rootDir, specId.source || filePath));
+    rows.set(specId.id, row);
+}
+
 function buildMatrix(rootDir) {
     const files = gatherMarkdownFiles(path.join(rootDir, 'docs'));
     const rows = new Map(); // id -> { artifacts: Set, status, notes }
+
     for (const f of files) {
-        const ids = extractIdsFromFile(f);
-        for (const s of ids) {
-            if (!validateIdFormat(s.id)) continue;
-            const row = rows.get(s.id) || { artifacts: new Set(), status: 'referenced', notes: '' };
-            row.artifacts.add(path.relative(rootDir, s.source));
-            rows.set(s.id, row);
+        // Extract IDs from content (existing functionality)
+        const contentIds = extractIdsFromFile(f);
+        for (const specId of contentIds) {
+            addSpecIdToMatrix(rows, specId, f, rootDir);
+        }
+
+        // Extract IDs from frontmatter matrix_ids
+        const frontmatterIds = extractIdsFromFrontmatter(f);
+        for (const specId of frontmatterIds) {
+            addSpecIdToMatrix(rows, specId, f, rootDir);
         }
     }
+
     const sorted = [...rows.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-    return sorted.map(([id, row]) => ({ id, artifacts: [...row.artifacts].sort(), status: row.status, notes: row.notes }));
+    return sorted.map(([id, row]) => ({
+        id,
+        artifacts: [...row.artifacts].sort(),
+        status: row.status,
+        notes: row.notes
+    }));
 }
 
 function renderMatrixTable(rows) {
@@ -57,4 +160,4 @@ if (require.main === module) {
     console.log(`[matrix] Updated ${result.file} with ${result.count} row(s).`);
 }
 
-module.exports = { buildMatrix, renderMatrixTable, updateMatrixFile };
+module.exports = { buildMatrix, renderMatrixTable, updateMatrixFile, extractFrontmatter, extractIdsFromFrontmatter };

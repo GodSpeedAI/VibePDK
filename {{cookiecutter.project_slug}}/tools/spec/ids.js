@@ -4,8 +4,8 @@ const fs = require('node:fs');
 
 function extractIdsFromText(text, source) {
     const found = [];
-    const product = /(PRD|ADR|SDS|TS)-(\d{1,4})/g;
-    const dev = /DEV-(PRD|ADR|SDS|TS)-(\d{1,4})/g;
+    const product = /(PRD|ADR|SDS|TS|TASK)-(\d{1,4})/g;
+    const dev = /DEV-(PRD|ADR|SDS|TS|TASK)-(\d{1,4})/g;
     for (const m of text.matchAll(product)) {
         const id = `${m[1]}-${m[2]}`;
         const type = m[1];
@@ -28,7 +28,7 @@ function extractIdsFromFile(path) {
 }
 
 function validateIdFormat(id) {
-    return /^(?:DEV-)?(?:PRD|ADR|SDS|TS)-\d{1,4}$/.test(id);
+    return /^(?:DEV-)?(?:PRD|ADR|SDS|TS|TASK)-\d{1,4}$/.test(id);
 }
 
 module.exports = { extractIdsFromText, extractIdsFromFile, validateIdFormat };
