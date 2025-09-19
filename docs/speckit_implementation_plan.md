@@ -41,12 +41,12 @@ This document outlines the phased implementation of the `speckit-integration.md`
 
 ## Phase 2: Naming Taxonomy and Just-first Workflows
 
-- [ ] **Cycle 1: `justfile` Scaffolding Recipes**
+- [x] **Cycle 1: `justfile` Scaffolding Recipes**
     -   **RED (PRD-002):** Write a shell test that fails to execute `just spec-feature THREAD=test`.
     -   **GREEN (DEV-PRD-002):** Add the `spec-feature`, `spec-plan`, and `spec-tasks` recipes to the `justfile`.
     -   **REFACTOR:** Ensure recipes are clear and use variables effectively.
     -   **REGRESSION:** Manually run existing `just` recipes to ensure they still work.
-    - Update checklist
+    - ✅ **Cycle 1 COMPLETED**
 
 - [ ] **Cycle 2: `justfile` Linter and Matrix Recipes**
     -   **RED (PRD-007):** Write a shell test that fails to execute `just prompt-lint` and `just spec-matrix`.
