@@ -62,12 +62,12 @@ This document outlines the phased implementation of the `speckit-integration.md`
   - **REGRESSION:** Run existing `spec-guard` tests.
   - ✅ **Cycle 3 COMPLETED**
 
-- [ ] **Cycle 4: CI Integration**
+- [x] **Cycle 4: CI Integration**
   - **RED (TS-002):** N/A (manual check).
   - **GREEN (DEV-TS-002):** Update `.github/workflows/spec-guard.yml` to call `just prompt-lint` and `just spec-matrix`.
   - **REFACTOR:** Consolidate CI steps where possible.
   - **REGRESSION:** Monitor CI runs to ensure existing checks still pass.
-  - Update checklist
+  - ✅ **Cycle 4 COMPLETED**
 
 ## Phase 3: Cleanup and Enforcement
 

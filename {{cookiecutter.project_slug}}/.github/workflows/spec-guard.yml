@@ -15,21 +15,27 @@ jobs:
           node-version: "20"
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+      - name: Install just
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+          just --version
       - name: Generate traceability matrix
-        run: pnpm run spec:matrix
+        run: just spec-matrix
+      - name: Lint prompts
+        run: just prompt-lint
       - name: Lint markdown
         run: pnpm run lint:md
       - name: Link check docs
         run: node tools/docs/link_check.js
-      - name: Lint prompts
+      - name: Plan prompts (budget and accurate tokenizer)
         run: |
-          for f in .github/prompts/*.prompt.md; do [ -e "$f" ] || continue; node tools/prompt/lint.js "$f"; done
-      - name: Plan prompts (budget check)
-        run: |
-          for f in .github/prompts/*.prompt.md; do [ -e "$f" ] || continue; node tools/prompt/plan_preview.js "$f"; done
-      - name: Plan prompts (accurate tokenizer)
-        run: |
-          for f in .github/prompts/*.prompt.md; do [ -e "$f" ] || continue; PROMPT_TOKENIZER=accurate node tools/prompt/plan_preview.js --accurate "$f"; done
+          for f in .github/prompts/*.prompt.md; do
+            [ -e "$f" ] || continue
+            echo "Planning $f (budget check)..."
+            node tools/prompt/plan_preview.js "$f"
+            echo "Planning $f (accurate tokenizer)..."
+            PROMPT_TOKENIZER=accurate node tools/prompt/plan_preview.js --accurate "$f"
+          done
       - name: Run unit tests
         run: pnpm run test:node
       - name: Environment audit
