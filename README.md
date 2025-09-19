@@ -19,19 +19,19 @@ graph TD
     I[🔴 Monorepo Complexity] --> J[🚦 Nx Orchestration]
     K[🔴 Manual Documentation] --> L[📚 Living Documentation]
 
-    style A fill:#ffcccb
-    style C fill:#ffcccb
-    style E fill:#ffcccb
-    style G fill:#ffcccb
-    style I fill:#ffcccb
-    style K fill:#ffcccb
+    style A fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
+    style C fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
+    style E fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
+    style G fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
+    style I fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
+    style K fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
 
-    style B fill:#90ee90
-    style D fill:#90ee90
-    style F fill:#90ee90
-    style H fill:#90ee90
-    style J fill:#90ee90
-    style L fill:#90ee90
+    style B fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
+    style D fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
+    style F fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
+    style H fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
+    style J fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
+    style L fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
 ```
 
 ## 🏗️ Architecture Overview
@@ -70,9 +70,9 @@ graph TB
 
     CODE --> DEPLOY[🚀 Deployment<br/>Infrastructure as Code]
 
-    classDef primary fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef secondary fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef tool fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef primary fill:#1565c0,color:#ffffff,stroke:#0d47a1,stroke-width:3px
+    classDef secondary fill:#7b1fa2,color:#ffffff,stroke:#4a148c,stroke-width:3px
+    classDef tool fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:3px
 
     class SPEC,CALM,NX primary
     class PROMPTS,CHAT,INSTRUCTIONS,AI secondary
@@ -156,11 +156,11 @@ graph LR
         LINT[Linting & Formatting]
     end
 
-    classDef python fill:#3776ab,color:#fff
-    classDef node fill:#339933,color:#fff
-    classDef arch fill:#ff6b35,color:#fff
-    classDef ai fill:#7c3aed,color:#fff
-    classDef dev fill:#64748b,color:#fff
+    classDef python fill:#1565c0,color:#ffffff,stroke:#0d47a1,stroke-width:3px
+    classDef node fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:3px
+    classDef arch fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:3px
+    classDef ai fill:#7b1fa2,color:#ffffff,stroke:#4a148c,stroke-width:3px
+    classDef dev fill:#e65100,color:#ffffff,stroke:#bf360c,stroke-width:3px
 
     class PY,UV,FAST,PYD,PYTEST python
     class NODE,PNPM,NX_CORE,TS,JEST node
