@@ -2,6 +2,8 @@
 kind: prompt
 domain: ui
 task: create-component
+thread: ui-react-create-component
+matrix_ids: []
 budget: S
 mode: "agent"
 model: GPT-5 mini

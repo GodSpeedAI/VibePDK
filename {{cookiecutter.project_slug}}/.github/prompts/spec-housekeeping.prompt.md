@@ -2,6 +2,8 @@
 kind: prompt
 domain: spec
 task: housekeeping
+thread: spec-housekeeping
+matrix_ids: []
 budget: S
 mode: "agent"
 model: GPT-5 mini

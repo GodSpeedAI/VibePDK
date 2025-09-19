@@ -2,6 +2,8 @@
 kind: prompt
 domain: debug
 task: workflow
+thread: debug-workflow
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

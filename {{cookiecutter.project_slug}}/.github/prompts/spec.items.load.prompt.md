@@ -2,6 +2,8 @@
 kind: prompt
 domain: spec
 task: items
+thread: spec-items-load
+matrix_ids: []
 budget: S
 mode: "agent"
 model: GPT-5 mini

@@ -2,6 +2,8 @@
 kind: prompt
 domain: spec
 task: plan-sds
+thread: spec-plan-sds
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

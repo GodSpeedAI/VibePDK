@@ -79,9 +79,10 @@ This document outlines the phased implementation of the `speckit-integration.md`
   - Update checklist
   - ✅ **Cycle 1 COMPLETED**
 
-- [ ] **Cycle 2: Migrate Legacy Files**
+- [x] **Cycle 2: Migrate Legacy Files**
   - **RED (PRD-017):** Run `just prompt-lint` and identify a legacy file that fails the new checks.
   - **GREEN (DEV-PRD-017):** Manually update the legacy file to conform to the new frontmatter and naming conventions. Repeat for all legacy files.
   - **REFACTOR:** N/A (manual process).
   - **REGRESSION:** Run `spec-guard` tests.
   - Update checklist
+  - ✅ **Cycle 2 COMPLETED**

@@ -2,6 +2,8 @@
 kind: prompt
 domain: perf
 task: analyze
+thread: perf-analyze
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

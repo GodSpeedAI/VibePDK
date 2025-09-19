@@ -2,6 +2,8 @@
 kind: prompt
 domain: testing
 task: hardening
+thread: test-hardening
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

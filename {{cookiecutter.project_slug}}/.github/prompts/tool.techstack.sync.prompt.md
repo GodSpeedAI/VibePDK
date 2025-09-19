@@ -2,6 +2,8 @@
 kind: prompt
 domain: tool
 task: sync
+thread: tool-techstack-sync
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

@@ -2,6 +2,8 @@
 kind: prompt
 domain: spec
 task: implement
+thread: spec-implement
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

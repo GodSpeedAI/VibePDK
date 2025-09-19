@@ -2,6 +2,8 @@
 kind: prompt
 domain: sec
 task: review
+thread: sec-review
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

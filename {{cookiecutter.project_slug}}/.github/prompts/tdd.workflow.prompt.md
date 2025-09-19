@@ -2,6 +2,8 @@
 kind: prompt
 domain: tdd
 task: workflow
+thread: tdd-workflow
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini

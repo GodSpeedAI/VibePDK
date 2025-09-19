@@ -2,6 +2,8 @@
 kind: prompt
 domain: spec
 task: transcript
+thread: spec-transcript-to-spec
+matrix_ids: []
 budget: M
 mode: "agent"
 model: GPT-5 mini
