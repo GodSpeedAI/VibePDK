@@ -83,7 +83,7 @@ graph TB
 
 ### 🧭 **Architecture-as-Code with CALM**
 
-- **FINOS CALM integration** for enterprise-grade architecture governance
+- **[FINOS CALM](https://github.com/finos/architecture-as-code)** integration for enterprise-grade architecture governance
 - **Automated validation** of architectural constraints and patterns
 - **Visual topology** generation from code specifications
 - **Deployment metadata** managed alongside application logic
