@@ -48,7 +48,7 @@ Many teams have experimented with custom YAML DSLs to manage AI prompts. While Y
    ```markdown
    ---
    mode: 'agent'
-   model: GPT-4o
+   model: GPT-5
    tools: ['githubRepo']
    description: 'Create a React component'
    ---

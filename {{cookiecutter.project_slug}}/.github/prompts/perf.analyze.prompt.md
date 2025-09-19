@@ -3,10 +3,10 @@ kind: prompt
 domain: perf
 task: analyze
 budget: M
-mode: 'agent'
-model: GPT-4.1
-tools: ['githubRepo', 'codebase']
-description: 'Analyse the performance characteristics of a code segment or component'
+mode: "agent"
+model: GPT-5 mini
+tools: ["githubRepo", "codebase"]
+description: "Analyse the performance characteristics of a code segment or component"
 ---
 
 # Performance Analysis Prompt

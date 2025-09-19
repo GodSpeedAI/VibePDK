@@ -1,7 +1,5 @@
 ---
-kind: prompt
-domain: spec
-task: implement
+name: test
 ---
 # Title
 Body

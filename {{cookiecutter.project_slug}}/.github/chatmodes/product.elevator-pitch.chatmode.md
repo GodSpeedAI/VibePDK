@@ -4,8 +4,8 @@ domain: product
 task: elevator-pitch
 budget: S
 description: Summarise the core idea of a project into a concise elevator pitch.
-tools: ['search', 'githubRepo']
-model: GPT-4o
+tools: ["search", "githubRepo"]
+model: GPT-5
 ---
 
 # Elevator Pitch Mode

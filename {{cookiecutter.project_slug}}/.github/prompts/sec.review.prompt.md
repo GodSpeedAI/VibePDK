@@ -3,10 +3,10 @@ kind: prompt
 domain: sec
 task: review
 budget: M
-mode: 'agent'
-model: GPT-4.1
-tools: ['githubRepo', 'codebase']
-description: 'Perform a security audit on selected files or the entire repository'
+mode: "agent"
+model: GPT-5 mini
+tools: ["githubRepo", "codebase"]
+description: "Perform a security audit on selected files or the entire repository"
 ---
 
 # Security Review Prompt

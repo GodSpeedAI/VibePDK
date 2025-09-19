@@ -4,8 +4,8 @@ domain: devops
 task: audit
 budget: M
 description: Perform a comprehensive DevOps audit focusing on security and performance aspects.
-tools: ['codebase', 'search', 'githubRepo', 'usages']
-model: GPT-4o
+tools: ["codebase", "search", "githubRepo", "usages"]
+model: GPT-5
 ---
 
 # DevOps Audit Mode

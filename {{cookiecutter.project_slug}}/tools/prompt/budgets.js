@@ -28,7 +28,7 @@ function estimateTokensAccurate(text, encodingName) {
         if (encodingName) {
             enc = get_encoding(encodingName);
         } else {
-            // Default to o200k_base (GPT-4o family); fallback to cl100k_base
+            // Default to o200k_base (GPT-5 family); fallback to cl100k_base
             try {
                 enc = get_encoding('o200k_base');
             } catch {

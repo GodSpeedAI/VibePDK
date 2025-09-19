@@ -144,3 +144,31 @@ def test_generated_project_installs_and_tests_pass(cookies: CookiesFixture) -> N
         pytest.fail(
             f"Command '{' '.join(cpe.cmd)}' failed with exit code {cpe.returncode}"
         )
+
+
+def test_spec_templates_exist_in_generated_project(cookies: CookiesFixture) -> None:
+    """
+    Test that the required spec template files exist in the generated project.
+    This test should fail initially because the template files don't exist yet.
+    """
+    result: BakeResult = cookies.bake()
+    assert result.exit_code == 0
+    project_path: Path = result.project_path
+
+    # Define the expected template files
+    expected_templates = [
+        "spec.feature.template.md",
+        "spec.plan.adr.prompt.md",
+        "spec.plan.prd.prompt.md",
+        "spec.plan.sds.prompt.md",
+        "spec.plan.ts.prompt.md",
+        "spec.plan.task.prompt.md",
+        "spec.tasks.template.md"
+    ]
+
+    # Check each template file exists in the prompts directory
+    prompts_dir = project_path / ".github" / "prompts"
+
+    for template in expected_templates:
+        template_path = prompts_dir / template
+        assert template_path.is_file(), f"Template file {template} does not exist at {template_path}"

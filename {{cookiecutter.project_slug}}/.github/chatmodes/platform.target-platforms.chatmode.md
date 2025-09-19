@@ -4,8 +4,8 @@ domain: platform
 task: target-platforms
 budget: S
 description: Decide on the platforms and technology stacks for your product.
-tools: ['search', 'githubRepo']
-model: GPT-4o
+tools: ["search", "githubRepo"]
+model: GPT-5
 ---
 
 # Target Platforms Mode

@@ -3,10 +3,10 @@ kind: prompt
 domain: ui
 task: create-component
 budget: S
-mode: 'agent'
-model: GPT-4.1
-tools: ['githubRepo', 'codebase']
-description: 'Generate a new React component'
+mode: "agent"
+model: GPT-5 mini
+tools: ["githubRepo", "codebase"]
+description: "Generate a new React component"
 ---
 
 # Create a React Component
