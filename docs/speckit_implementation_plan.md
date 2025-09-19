@@ -48,12 +48,12 @@ This document outlines the phased implementation of the `speckit-integration.md`
     -   **REGRESSION:** Manually run existing `just` recipes to ensure they still work.
     - ✅ **Cycle 1 COMPLETED**
 
-- [ ] **Cycle 2: `justfile` Linter and Matrix Recipes**
+- [x] **Cycle 2: `justfile` Linter and Matrix Recipes**
     -   **RED (PRD-007):** Write a shell test that fails to execute `just prompt-lint` and `just spec-matrix`.
     -   **GREEN (DEV-PRD-007):** Add the `prompt-lint` and `spec-matrix` recipes to the `justfile`.
     -   **REFACTOR:** N/A.
     -   **REGRESSION:** Manually run existing `just` recipes.
-    - Update checklist
+    - ✅ **Cycle 2 COMPLETED**
 
 - [ ] **Cycle 3: Traceability Matrix Updates (`thread`, `matrix_ids`)**
     -   **RED (SDS-003):** Create a test in a new `matrix.test.js` that fails to link a spec/plan/tasks triplet by `thread`.
