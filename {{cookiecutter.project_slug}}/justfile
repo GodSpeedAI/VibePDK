@@ -16,6 +16,78 @@ sync-techstack-dry ts="techstack.yaml":
 # Linting and Testing
 lint-shell:
 	pnpm lint:shell
+# --- Spec-Driven Workflow Recipes ---
+
+# Scaffold a feature specification
+spec-feature THREAD="":
+	@if [ -z "{{ '{{THREAD}}' }}" ]; then \
+		echo "Usage: just spec-feature THREAD=<feature-slug>"; \
+		echo "Example: just spec-feature THREAD=test-feature"; \
+		exit 1; \
+	fi
+	@mkdir -p "docs/specs/{{ '{{THREAD}}' }}"
+	@echo "---" > "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "thread: {{ '{{THREAD}}' }}" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "matrix_ids: []" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "# Feature Specification" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "## What" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "## Why" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/spec.md"
+	@echo "Created feature specification for thread: {{ '{{THREAD}}' }}"
+
+# Generate detailed implementation plan from feature spec
+spec-plan THREAD="" FAMILY="":
+	@if [ -z "{{ '{{THREAD}}' }}" ]; then \
+		echo "Usage: just spec-plan THREAD=<feature-slug> FAMILY=<adr|prd|sds|ts|task>"; \
+		echo "Example: just spec-plan THREAD=test-feature FAMILY=prd"; \
+		exit 1; \
+	fi
+	@if ! echo "{{ '{{FAMILY}}' }}" | grep -qE "^(adr|prd|sds|ts|task)$$"; then \
+		echo "Error: FAMILY must be one of: adr, prd, sds, ts, task"; \
+		exit 1; \
+	fi
+	@mkdir -p "docs/specs/{{ '{{THREAD}}' }}"
+	@echo "---" > "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "thread: {{ '{{THREAD}}' }}" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "matrix_ids: []" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "# $(echo {{ '{{FAMILY}}' }} | tr '[:lower:]' '[:upper:]') Implementation Plan" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "## TDD Cycles" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "## File Changes" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "## Validation Steps" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/plan.{{ '{{FAMILY}}' }}.md"
+	@echo "Created $(echo {{ '{{FAMILY}}' }} | tr '[:lower:]' '[:upper:]') implementation plan for thread: {{ '{{THREAD}}' }}"
+
+# Create numbered list of discrete, executable tasks from the plan
+spec-tasks THREAD="":
+	@if [ -z "{{ '{{THREAD}}' }}" ]; then \
+		echo "Usage: just spec-tasks THREAD=<feature-slug>"; \
+		echo "Example: just spec-tasks THREAD=test-feature"; \
+		exit 1; \
+	fi
+	@mkdir -p "docs/specs/{{ '{{THREAD}}' }}"
+	@echo "---" > "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "thread: {{ '{{THREAD}}' }}" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "matrix_ids: []" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "# Tasks" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "## Tasks" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "1. [ ] Define the scope and objectives" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "2. [ ] Identify key stakeholders and requirements" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "3. [ ] Create implementation plan" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "4. [ ] Execute tasks using TDD" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "5. [ ] Validate and test the implementation" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "" >> "docs/specs/{{ '{{THREAD}}' }}/tasks.md"
+	@echo "Created task list for thread: {{ '{{THREAD}}' }}"
+
 # --- AI-assisted workflows (additive, namespaced) ---
 
 
