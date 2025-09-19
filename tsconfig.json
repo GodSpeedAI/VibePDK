@@ -7,14 +7,12 @@
         "skipLibCheck": true,
         "strict": true,
         "baseUrl": ".",
-        "types": [
-            "node"
-        ],
         "allowJs": false,
         "noEmit": true
     },
     "include": [
-        "vibepdk_archive/tools/**/*.ts",
-        "vibepdk_archive/tests/**/*.ts"
+        "{{cookiecutter.project_slug}}/tools/**/*.ts",
+        "{{cookiecutter.project_slug}}/tests/**/*.ts",
+        "{{cookiecutter.project_slug}}/generators/**/*.ts"
     ]
 }

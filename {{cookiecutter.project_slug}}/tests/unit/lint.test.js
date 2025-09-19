@@ -61,22 +61,22 @@ const specTemplateFiles = [
   'spec.plan.task.prompt.md'
 ];
 
-// Test missing thread field (should be warning only)
+// Test missing thread field (now treated as error)
 for (const templateFile of specTemplateFiles) {
   const templatePath = path.join(specTemplatesDir, templateFile);
   const lintResult = lintPromptFile(templatePath);
-  // In GREEN phase, linter should pass but with warnings
-  assert.strictEqual(lintResult.ok, true, `Linter should pass for missing thread field in ${templateFile} (warnings only)`);
-  assert.ok(lintResult.findings.some(finding => finding.includes('Recommend adding frontmatter field: thread')), `Should have warning for missing thread field in ${templateFile}`);
+  // Phase 3: missing thread is a blocking error
+  assert.strictEqual(lintResult.ok, false, `Linter should fail for missing thread field in ${templateFile}`);
+  assert.ok(lintResult.findings.some(finding => finding.includes('Missing frontmatter field: thread')), `Should report missing thread field in ${templateFile}`);
 }
 
-// Test missing matrix_ids field (should be warning only)
+// Test missing matrix_ids field (now treated as error)
 for (const templateFile of specTemplateFiles) {
   const templatePath = path.join(specTemplatesDir, templateFile);
   const lintResult = lintPromptFile(templatePath);
-  // In GREEN phase, linter should pass but with warnings
-  assert.strictEqual(lintResult.ok, true, `Linter should pass for missing matrix_ids field in ${templateFile} (warnings only)`);
-  assert.ok(lintResult.findings.some(finding => finding.includes('Recommend adding frontmatter field: matrix_ids')), `Should have warning for missing matrix_ids field in ${templateFile}`);
+  // Phase 3: missing matrix_ids is a blocking error
+  assert.strictEqual(lintResult.ok, false, `Linter should fail for missing matrix_ids field in ${templateFile}`);
+  assert.ok(lintResult.findings.some(finding => finding.includes('Missing frontmatter field: matrix_ids')), `Should report missing matrix_ids field in ${templateFile}`);
 }
 
 // Clean up

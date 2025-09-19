@@ -71,12 +71,13 @@ This document outlines the phased implementation of the `speckit-integration.md`
 
 ## Phase 3: Cleanup and Enforcement
 
-- [ ] **Cycle 1: Linter Enforcement (Errors)**
+- [x] **Cycle 1: Linter Enforcement (Errors)**
   - **RED (PRD-014):** Change the linter tests for frontmatter and model validation to expect errors instead of warnings.
   - **GREEN (DEV-PRD-014):** Update `lint.js` to throw errors for violations.
   - **REFACTOR:** N/A.
   - **REGRESSION:** Run `spec-guard` tests.
   - Update checklist
+  - ✅ **Cycle 1 COMPLETED**
 
 - [ ] **Cycle 2: Migrate Legacy Files**
   - **RED (PRD-017):** Run `just prompt-lint` and identify a legacy file that fails the new checks.

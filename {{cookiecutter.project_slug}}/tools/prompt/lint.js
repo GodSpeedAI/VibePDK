@@ -16,15 +16,15 @@ const FILE_EXTENSIONS = {
 };
 
 const REQUIRED_FIELDS = {
-  PROMPT: ['kind', 'domain', 'task'],
-  CHATMODE: ['kind', 'domain', 'task'],
-  INSTRUCTIONS: ['kind', 'domain']
+  PROMPT: ['kind', 'domain', 'task', 'thread', 'matrix_ids'],
+  CHATMODE: ['kind', 'domain', 'task', 'thread', 'matrix_ids'],
+  INSTRUCTIONS: ['kind', 'domain', 'thread', 'matrix_ids']
 };
 
 const RECOMMENDED_FIELDS = {
-  PROMPT: ['budget', 'thread', 'matrix_ids'],
-  CHATMODE: ['budget', 'thread', 'matrix_ids'],
-  INSTRUCTIONS: ['precedence', 'thread', 'matrix_ids']
+  PROMPT: ['budget'],
+  CHATMODE: ['budget'],
+  INSTRUCTIONS: ['precedence']
 };
 
 const GITHUB_DIR = path.join(path.dirname(path.dirname(__dirname)), '.github');
@@ -117,14 +117,6 @@ function loadModelsConfig() {
     return {};
   }
 }
-// Legacy validation for thread and matrix_ids (maintains backward compatibility)
-function validateLegacyFields(fields, findings) {
-  // Check for thread and matrix_ids frontmatter fields (warnings only)
-  if (!fields.thread) findings.push("Recommend adding frontmatter field: thread");
-  if (!fields.matrix_ids) findings.push("Recommend adding frontmatter field: matrix_ids");
-}
-
-
 function loadInstructionsConfig() {
   const instructionsPath = path.join(GITHUB_DIR, 'instructions');
 
@@ -290,9 +282,6 @@ function lintPromptFile(file) {
 
     // Validate required fields based on file type
     validateRequiredFields(fields, kind, findings);
-
-    // Validate legacy fields (thread and matrix_ids) for backward compatibility
-    validateLegacyFields(fields, findings);
 
     // Validate recommended fields based on file type
     validateRecommendedFields(fields, kind, findings);
