@@ -16,6 +16,15 @@ sync-techstack-dry ts="techstack.yaml":
 # Linting and Testing
 lint-shell:
 	pnpm lint:shell
+
+# Lint prompts for compliance with standards
+prompt-lint:
+	pnpm prompt:lint
+
+# Generate traceability matrix for specifications
+spec-matrix:
+	pnpm spec:matrix
+
 # --- Spec-Driven Workflow Recipes ---
 
 # Scaffold a feature specification
