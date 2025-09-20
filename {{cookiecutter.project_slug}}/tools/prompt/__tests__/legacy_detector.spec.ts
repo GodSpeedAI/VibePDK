@@ -1,6 +1,6 @@
-const assert = require('node:assert');
-const path = require('node:path');
-const { detectLegacyFiles, proposeCorrectName } = require('../legacy_detector');
+import assert from 'node:assert';
+import path from 'node:path';
+import { detectLegacyFiles, proposeCorrectName } from '../legacy_detector.js';
 
 // Test cases for legacy files that don't match the pattern <domain>.<task>[.<phase>].<kind>.md
 const LEGACY_FILES = [
