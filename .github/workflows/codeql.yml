@@ -1,9 +1,9 @@
 name: "CodeQL"
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
 jobs:
   analyze:
     runs-on: ubuntu-latest
@@ -12,9 +12,9 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v2
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+      - uses: github/codeql-action/init@4d85deb8548d03be541760228f3fe9e6a4d5d27d # v2.26.12
         with:
           languages: javascript, python
-      - uses: github/codeql-action/autobuild@v2
-      - uses: github/codeql-action/analyze@v2
+      - uses: github/codeql-action/autobuild@4d85deb8548d03be541760228f3fe9e6a4d5d27d # v2.26.12
+      - uses: github/codeql-action/analyze@4d85deb8548d03be541760228f3fe9e6a4d5d27d # v2.26.12
