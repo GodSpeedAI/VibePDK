@@ -528,11 +528,30 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
-## 📄 License & Acknowledgments
+## 📄 License & Community
+
+### The Photoshop Rule
+
+VibePDK follows what we call **"The Photoshop Rule"** — a simple way to understand how you can use VibePDK without getting lost in legal jargon:
+
+> 🖼️ **Think of VibePDK like Photoshop.**
+> You can use Photoshop to design, paint, or build anything — logos, posters, full digital worlds. You can sell your art, keep it private, or use it inside your company.
+>
+> What you *can't* do is **sell Photoshop itself** or offer "Photoshop as a service."
+
+It's the same with VibePDK:
+
+- ✅ **Use VibePDK freely inside your organization** — build projects, generate code, support your engineering workflows.
+- ✅ **Use it to create outputs** (like applications, services, architecture blueprints) and use or sell those outputs however you like.
+- ❌ **Don't resell VibePDK itself** — you can't package it up and offer it as a hosted platform or SaaS to third parties without a commercial license.
+- ❌ **Don't strip out VibePDK's core to make a competing template service.**
 
 ### License
 
-VibePDK is licensed under the [Mozilla Public License 2.0](LICENSE)—free to use, share, and modify.
+VibePDK is released under a **dual license**:
+
+- 🧩 **MPL-2.0 (Open Source)** — for personal, educational, and internal company use. See the [LICENSE](LICENSE) file for details.
+- 💼 **Commercial License** — required if you want to embed, resell, or offer VibePDK as a hosted service. [Contact us](https://github.com/SPRIME01/VibePDK/discussions) for details.
 
 ### Built on the Shoulders of Giants
 
