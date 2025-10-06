@@ -76,6 +76,7 @@ node_modules/
 
 # Temporary
 .tmp/
+docs/tmp/
 
 # Ignore cookiecutter placeholders (if present)
 {{cookiecutter.project_slug}}/.envrc

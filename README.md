@@ -4,599 +4,553 @@
 [![Node Tests](https://github.com/SPRIME01/VibePDK/actions/workflows/node-tests.yml/badge.svg)](https://github.com/SPRIME01/VibePDK/actions/workflows/node-tests.yml)
 [![Cookiecutter Template](https://img.shields.io/badge/cookiecutter-template-blue.svg)](https://github.com/audreyr/cookiecutter)
 
-> **AI-Native Development Kit** for building scalable, architecture-driven applications with automated code generation, prompt engineering workflows, and enterprise-grade tooling.
+---
 
-## 🎯 What VibePDK Solves
+## 🌟 Imagine This
 
-VibePDK eliminates the most common pain points in modern software development:
+You're starting a new project. It's 9 AM on Monday morning. Your coffee is still hot.
 
-```mermaid
-graph TD
-    A[🔴 Manual Project Setup] --> B[⚡ Automated Template Generation]
-    C[🔴 Architecture Drift] --> D[🧭 CALM Architecture-as-Code]
-    E[🔴 Inconsistent Toolchains] --> F[⚙️ Standardized Development Environment]
-    G[🔴 AI Workflow Chaos] --> H[🤖 Prompt Engineering System]
-    I[🔴 Monorepo Complexity] --> J[🚦 Nx Orchestration]
-    K[🔴 Manual Documentation] --> L[📚 Living Documentation]
+Instead of spending the next three days wrestling with:
 
-    style A fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
-    style C fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
-    style E fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
-    style G fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
-    style I fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
-    style K fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
+- *"Which framework should we use?"*
+- *"How do we keep the architecture consistent?"*
+- *"Where do we even put our AI prompts?"*
+- *"Why is setting up a monorepo so complicated?"*
 
-    style B fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-    style D fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-    style F fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-    style H fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-    style J fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-    style L fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-```
+**You run one command.**
 
-## 🏗️ Architecture Overview
+By 9:05 AM, you have a complete, production-ready foundation—like a master chef handing you a kitchen where every tool is exactly where you need it, every recipe is proven, and the whole team knows how to cook together.
 
-VibePDK creates a comprehensive development ecosystem that scales from startup to enterprise:
+**That's VibePDK.**
 
-```mermaid
-graph TB
-    subgraph "🎯 Single Source of Truth"
-        SPEC[📋 Domain Specification<br/>YAML + CALM]
-    end
+---
 
-    subgraph "🔄 Generation Pipeline"
-        SPEC --> CALM[🧭 CALM Validation<br/>Architecture Controls]
-        CALM --> NX[🚦 Nx Generators<br/>Code Scaffolding]
-        NX --> CODE[💻 Generated Code<br/>FastAPI + Pydantic + Tests]
-    end
+## 🎯 The Problem (The Real One)
 
-    subgraph "🤖 AI Development Workflow"
-        PROMPTS[📝 Prompt Templates<br/>Versioned & Linted]
-        CHAT[💬 Chat Modes<br/>Context-Aware]
-        INSTRUCTIONS[📖 Copilot Instructions<br/>Project-Specific]
+Picture a construction site where every builder uses different blueprints, speaks a different language, and keeps their tools in random places. That's what modern software development feels like:
 
-        PROMPTS --> AI[🧠 AI Assistant]
-        CHAT --> AI
-        INSTRUCTIONS --> AI
-        AI --> CODE
-    end
+### 😓 Day 1: The Setup Nightmare
 
-    subgraph "⚙️ Development Tools"
-        JUST[🧰 Justfile<br/>Task Automation]
-        DIRENV[🔧 Direnv<br/>Environment Management]
-        HUSKY[🔗 Git Hooks<br/>Quality Gates]
-        VSCODE[🎨 VS Code<br/>Optimized Setup]
-    end
+- Spend days configuring tools instead of writing code
+- Copy-paste from old projects, hoping nothing breaks
+- Each team member has a slightly different setup
 
-    CODE --> DEPLOY[🚀 Deployment<br/>Infrastructure as Code]
+### 🌪️ Month 3: The Architecture Drift
 
-    classDef primary fill:#1565c0,color:#ffffff,stroke:#0d47a1,stroke-width:3px
-    classDef secondary fill:#7b1fa2,color:#ffffff,stroke:#4a148c,stroke-width:3px
-    classDef tool fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:3px
+- Your "microservices" are now a tangled web
+- Nobody knows where to add new features anymore
+- Documentation is outdated before it's even written
 
-    class SPEC,CALM,NX primary
-    class PROMPTS,CHAT,INSTRUCTIONS,AI secondary
-    class JUST,DIRENV,HUSKY,VSCODE tool
-```
+### 🤖 Year 1: The AI Chaos
 
-## ✨ Key Features
+- AI tools give different answers to different team members
+- Prompt quality depends on who's asking
+- No consistent way to capture what works
 
-### 🧭 **Architecture-as-Code with CALM**
+**The cost?** Weeks of lost productivity. Frustrated developers. Projects that are hard to scale.
 
-- **FINOS CALM integration** for enterprise-grade architecture governance
-- **Automated validation** of architectural constraints and patterns
-- **Visual topology** generation from code specifications
-- **Deployment metadata** managed alongside application logic
+---
 
-### 🚦 **Nx Monorepo Orchestration**
+## ✨ The Solution (Your New Superpower)
 
-- **Smart caching** and **dependency graph analysis**
-- **Incremental builds** and **affected testing**
-- **Code sharing** across polyglot services
-- **Workspace generators** for consistent scaffolding
+VibePDK is like having an experienced architect, a master builder, and an AI assistant working together from day one.
 
-### 🤖 **AI-Native Development Workflow**
+Think of it as **three magical powers** working in harmony:
 
-- **Prompt engineering system** with versioning and linting
-- **Context-aware chat modes** for different development phases
-- **GitHub Copilot integration** with project-specific instructions
-- **Automated code generation** with specification-driven prompts
+### 🧭 Power 1: Your Architectural Blueprint (CALM)
 
-### 🐍 **Python + Node.js Ecosystem**
+Imagine having a GPS for your entire codebase—one that not only shows you where everything is, but ensures no one can accidentally build a highway through your living room.
 
-- **FastAPI + Pydantic** scaffolding with `@nxlv/python`
-- **Modern Python tooling**: `uv` for package management
-- **TypeScript support** with strict typing
-- **Cross-platform compatibility** via `justfile`
+**What it feels like:**
 
-### 📚 **Living Documentation**
+- Define your system architecture once, in plain language
+- Every service, every connection, every rule is visible at a glance
+- Your architecture enforces itself—like guardrails that gently guide you back on track
+- Visual diagrams update automatically as your system evolves
 
-- **Specification-driven development** with TDD workflows
-- **Automated docs generation** from architecture and code
-- **Traceability matrix** linking requirements to implementation
-- **Knowledge management** with structured prompt libraries
+**The magic:** Architecture drift becomes impossible. Your system stays organized as it grows, like a well-planned city instead of urban sprawl.
 
-## 🛠️ Technology Stack
+### 🚦 Power 2: Your Coordination Engine (Nx Monorepo)
 
-```mermaid
-graph LR
-    subgraph "🐍 Python Ecosystem"
-        PY[Python 3.12]
-        UV[uv Package Manager]
-        FAST[FastAPI Framework]
-        PYD[Pydantic Models]
-        PYTEST[Pytest Testing]
-    end
+Picture a smart assistant who knows exactly which parts of your project need attention—and handles the boring coordination work for you.
 
-    subgraph "🟨 Node.js Ecosystem"
-        NODE[Node.js 24]
-        PNPM[pnpm Package Manager]
-        NX_CORE[Nx Monorepo]
-        TS[TypeScript]
-        JEST[Jest Testing]
-    end
+**What it feels like:**
 
-    subgraph "🏗️ Architecture Tools"
-        CALM_ARCH[FINOS CALM]
-        COOKIE[Cookiecutter]
-        JUST_TOOL[Justfile]
-        DIRENV_TOOL[Direnv]
-    end
+- Change one file, and only the affected parts rebuild (not everything)
+- Share code across projects without the copy-paste nightmare
+- Run tests intelligently—only where it matters
+- See your entire project's dependency graph in beautiful clarity
 
-    subgraph "🤖 AI Tools"
-        COPILOT[GitHub Copilot]
-        PROMPTS_SYS[Prompt System]
-        MCP[Model Context Protocol]
-    end
+**The magic:** Your monorepo feels light and fast, even with dozens of projects. It's like having a perfectly organized workshop where every tool is within arm's reach.
 
-    subgraph "🔧 Development Tools"
-        GIT[Git + Husky]
-        VSCODE_IDE[VS Code]
-        HUSKY_HOOKS[Git Hooks]
-        LINT[Linting & Formatting]
-    end
+### 🤖 Power 3: Your AI Collaboration System
 
-    classDef python fill:#1565c0,color:#ffffff,stroke:#0d47a1,stroke-width:3px
-    classDef node fill:#2e7d32,color:#ffffff,stroke:#1b5e20,stroke-width:3px
-    classDef arch fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:3px
-    classDef ai fill:#7b1fa2,color:#ffffff,stroke:#4a148c,stroke-width:3px
-    classDef dev fill:#e65100,color:#ffffff,stroke:#bf360c,stroke-width:3px
+Imagine your whole team having access to the same expert advisor—one that remembers your project's quirks, speaks your domain language, and gives consistent answers every time.
 
-    class PY,UV,FAST,PYD,PYTEST python
-    class NODE,PNPM,NX_CORE,TS,JEST node
-    class CALM_ARCH,COOKIE,JUST_TOOL,DIRENV_TOOL arch
-    class COPILOT,PROMPTS_SYS,MCP ai
-    class GIT,VSCODE_IDE,HUSKY_HOOKS,LINT dev
-```
+**What it feels like:**
 
-## 🚀 Quick Start
+- Prompts are versioned and tested, like production code
+- Context-aware conversations that understand your project structure
+- AI suggestions that follow your architectural rules
+- Knowledge capture that turns good ideas into reusable patterns
 
-### Prerequisites
+**The magic:** AI becomes a reliable team member, not a wild card. Every developer gets expert-level assistance, consistently.
 
-Ensure you have the following installed:
+---
+
+## 🎬 See It In Action
+
+### The 5-Minute Project Launch
+
+**Step 1: Dream It** (30 seconds)
 
 ```bash
-# Required
-Python 3.12+         # pyenv recommended
-Node.js 24+          # Volta recommended
-cookiecutter         # uv tool install cookiecutter
-direnv              # Environment management
-
-# Optional but recommended
-just                # Task runner
-git                 # Version control
+cookiecutter https://github.com/SPRIME01/VibePDK.git
+# Answer 4 simple questions about your project
 ```
 
-### 1️⃣ Generate Your Project
+**Step 2: Enter Your World** (1 minute)
 
 ```bash
-# Clone the template
-git clone https://github.com/SPRIME01/VibePDK.git
-cd VibePDK
-
-# Generate a new project
-cookiecutter .
-
-# Follow the prompts:
-# project_slug: my-awesome-app
-# author_name: Your Name
-# python_version: 3.12
-# description: My revolutionary application
-```
-
-### 2️⃣ Set Up Development Environment
-
-```bash
-# Navigate to your new project
 cd my-awesome-app
-
-# Load environment variables
-direnv allow
-
-# Install toolchains (if using Volta)
-volta pin node@24 pnpm@latest
-corepack enable && corepack prepare pnpm@latest --activate
-
-# Install dependencies
-pnpm install
+direnv allow  # Your environment configures itself
+pnpm install  # Dependencies flow in smoothly
 ```
 
-### 3️⃣ Start Building
+**Step 3: Build It** (3 minutes)
 
 ```bash
-# Generate domain inputs from CALM architecture
-just gen-calm
-
-# Scaffold your first service
-just nx-generate
-
-# Run tests to verify setup
-just test
-
-# Start development server (when implemented)
-just dev
+just gen-calm          # Architecture materializes from your design
+just nx-generate       # Scaffold your first service
+just test              # Everything passes (already!)
 ```
 
-## 📋 Common Workflows
+**What just happened?**
 
-### 🏗️ **Architecture-First Development**
+In the time it takes to finish your coffee, you went from nothing to:
 
-```bash
-# 1. Define architecture in CALM
-edit architecture/calm/system.calm.json
+- ✅ A production-grade project structure
+- ✅ Architecture governance in place
+- ✅ AI assistants configured for your domain
+- ✅ Tests passing
+- ✅ Team ready to contribute
 
-# 2. Generate domain model
-just gen-calm
+**No configuration hell. No architectural debates. No "where do I put this?" moments.**
 
-# 3. Validate architecture constraints
-just calm-validate
+---
 
-# 4. Scaffold services from architecture
-just nx-generate
+## 💫 The Difference You'll Feel
+
+### Before VibePDK
+
+```text
+Day 1-3:   😰 Wrestling with setup, debating tool choices
+Week 2:    🤔 "How do we structure this again?"
+Month 2:   😫 Refactoring because the architecture fell apart
+Month 4:   😤 Different AI answers causing confusion
+Month 6:   😱 Can't onboard new developers—too complex
 ```
 
-### 🤖 **AI-Assisted Development**
+### After VibePDK
 
-```bash
-# 1. Review available prompt templates
-ls .github/prompts/
-
-# 2. Lint prompts for consistency
-just prompt:lint
-
-# 3. Use context-aware chat modes in VS Code
-# Open Command Palette → GitHub Copilot: Chat
-
-# 4. Generate code with specification prompts
-just ai:scaffold type=api name=users
+```text
+Day 1:     🚀 Shipping features (setup done in 5 minutes)
+Week 2:    😊 Architecture guides decisions automatically
+Month 2:   ✨ Adding services feels natural and easy
+Month 4:   🤝 Team collaborates with consistent AI assistance
+Month 6:   🎉 New developers productive in hours, not weeks
 ```
 
-### 🔄 **Specification-Driven TDD**
+---
 
-```bash
-# 1. Create feature specification
-just spec:feature name=user-management
+## 🎨 What's Inside Your New Superpower
 
-# 2. Generate implementation plan
-just spec:plan feature=user-management
-
-# 3. Break down into tasks
-just spec:tasks feature=user-management
-
-# 4. Implement with TDD cycles
-just tdd:cycle feature=user-management
-```
-
-## 🗂️ Generated Project Structure
-
-VibePDK creates a comprehensive project layout:
+When you generate a project with VibePDK, you get a complete ecosystem:
 
 ```text
 my-awesome-app/
-├── 🏗️ architecture/           # CALM architecture definitions
-│   └── calm/
-│       ├── system.calm.json   # System topology
-│       └── patterns.calm.json # Reusable patterns
-├── 🎯 domain/                 # Domain model specification
-│   └── domain.yaml           # Single source of truth
-├── ⚙️ generators/             # Nx workspace generators
-│   ├── nx/                   # Standard Nx generators
-│   └── nxlv-python/          # Python-specific generators
-├── 🧰 tools/                  # Development utilities
-│   ├── calm/                 # Architecture validation
-│   ├── prompt/               # AI prompt management
-│   ├── spec/                 # Specification tools
-│   └── test/                 # Testing utilities
-├── 📱 apps/                   # Application projects
-├── 📚 libs/                   # Shared libraries
-├── 🤖 .github/                # AI workflow integration
-│   ├── prompts/              # Versioned prompt templates
-│   ├── chatmodes/            # Context-aware chat modes
-│   ├── instructions/         # Copilot configuration
-│   └── workflows/            # CI/CD automation
-├── 🎨 .vscode/                # Optimized IDE setup
-│   ├── settings.json         # Project settings
-│   ├── tasks.json            # Task definitions
-│   └── mcp.json              # Model Context Protocol
-├── 📋 justfile                # Cross-platform task runner
-├── 🔧 .envrc                  # Environment configuration
-├── 📦 package.json            # Node.js dependencies
-├── 🐍 requirements.txt        # Python dependencies
-└── 🌐 techstack.yaml          # Technology stack definition
+├── 🧭 architecture/          # Your living blueprint
+│   └── calm/                 # CALM specifications that enforce themselves
+│
+├── 🎯 domain/                # Your single source of truth
+│   └── domain.yaml          # One file that generates everything
+│
+├── 🤖 .github/               # AI workflow magic
+│   ├── prompts/             # Battle-tested prompt templates
+│   ├── chatmodes/           # Context-aware AI conversations
+│   └── instructions/        # Project-specific AI guidance
+│
+├── ⚙️ tools/                 # Your automation toolkit
+│   ├── calm/                # Architecture validation
+│   ├── prompt/              # AI prompt management
+│   └── spec/                # Specification tools
+│
+├── 📱 apps/                  # Your applications
+├── 📚 libs/                  # Shared libraries
+└── 🎨 .vscode/               # Editor optimized for flow
 ```
 
-## 🎯 Use Cases
+**Everything is connected. Everything works together. From day one.**
 
-### 🏢 **Enterprise Applications**
-
-- **Microservices architecture** with CALM governance
-- **Compliance and audit trails** through architecture-as-code
-- **Cross-team collaboration** with standardized workflows
-- **Technology stack standardization** across departments
-
-### 🚀 **Startup MVPs**
-
-- **Rapid prototyping** with pre-configured generators
-- **AI-accelerated development** through prompt engineering
-- **Scalable foundation** that grows with your team
-- **Best practices by default** without over-engineering
-
-### 🔬 **Research & Innovation**
-
-- **Experiment tracking** through specification versioning
-- **Reproducible environments** with declarative tooling
-- **AI-assisted exploration** with context-aware prompts
-- **Knowledge capture** through living documentation
-
-### 🎓 **Educational Projects**
-
-- **Learn modern development practices** through working examples
-- **Understand architecture patterns** with visual CALM diagrams
-- **Practice TDD workflows** with guided specifications
-- **AI pair programming** with structured prompts
-
-## 🛡️ Best Practices
-
-### 🔒 **Security & Secrets Management**
-
-```bash
-# Never commit secrets - use environment files
-echo "SECRET_KEY=your-secret" >> .envrc.local
-
-# Use secret managers in production
-export DATABASE_URL="$(vault kv get -field=url secret/database)"
-
-# Validate security with automated scans
-just security:scan
-```
-
-### 📐 **Architecture Governance**
-
-```bash
-# Validate architectural constraints
-just calm:validate
-
-# Generate architecture diagrams
-just calm:diagram
-
-# Check for architecture drift
-just calm:drift-check
-```
-
-### 🤖 **AI Development Workflow**
-
-```bash
-# Lint prompts for consistency
-just prompt:lint
-
-# Preview prompt outputs before commit
-just prompt:preview
-
-# Version prompts with semantic releases
-just prompt:release
-```
-
-### 🔄 **Continuous Integration**
-
-```yaml
-# .github/workflows/ci.yml
-name: CI Pipeline
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-            - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
-      - run: just install
-      - run: just lint
-      - run: just test
-      - run: just calm:validate
-      - run: just prompt:lint
-```
-
-## 🔧 Advanced Configuration
-
-### 🎨 **Customizing Generators**
-
-```typescript
-// generators/my-custom/index.ts
-import { Tree, formatFiles, generateFiles } from '@nx/devkit';
-
-export default async function(tree: Tree, options: any) {
-  generateFiles(tree, path.join(__dirname, 'files'), '.', options);
-  await formatFiles(tree);
-}
-```
-
-### 🧭 **Extending CALM Patterns**
-
-```json
-{
-  "calm": "1.0.0",
-  "patterns": {
-    "api-gateway": {
-      "type": "pattern",
-      "description": "Standard API Gateway configuration",
-      "components": ["gateway", "load-balancer", "rate-limiter"]
-    }
-  }
-}
-```
-
-### 🤖 **Custom Prompt Templates**
-
-```markdown
----
-thread: feature-implementation
-matrix_ids: [SDS-001, PRD-002]
 ---
 
-# Feature Implementation Prompt
+## 🌍 Who This Empowers
 
-## Context
-You are implementing {{feature_name}} based on the specification.
+### 🏢 Enterprise Teams
 
-## Requirements
-{{requirements}}
+**The scenario:** You're leading a platform team supporting 50 developers across 10 services.
 
-## Constraints
-{{constraints}}
+**The transformation:**
 
-## Expected Output
-- Implementation plan
-- Test strategy
-- Documentation updates
-```
+- **Before:** Every team invents their own structure. Code reviews are debates about architecture.
+- **After:** One template. Consistent patterns. Reviews focus on business logic, not folder structure.
 
-## 🚨 Troubleshooting
+**The feeling:** Finally, everyone speaks the same architectural language.
 
-### Common Issues
+### 🚀 Startup Founders
 
-<details>
-<summary>🐍 <strong>Python Environment Issues</strong></summary>
+**The scenario:** You're a founder who needs to move fast but can't afford technical debt.
+
+**The transformation:**
+
+- **Before:** Racing to build features, leaving a trail of "we'll fix this later" decisions.
+- **After:** Ship fast with a foundation that scales. Your future self will thank you.
+
+**The feeling:** Speed without the guilt. Growth without the mess.
+
+### 🔬 Research Teams
+
+**The scenario:** You're experimenting with new ideas and need to iterate quickly.
+
+**The transformation:**
+
+- **Before:** Every experiment is a new project from scratch. Hard to compare results.
+- **After:** Spin up experiments in minutes. Focus on the novel parts, not boilerplate.
+
+**The feeling:** More time thinking, less time wiring things together.
+
+### 🎓 Learning Developers
+
+**The scenario:** You're learning modern development and drowning in tool choices.
+
+**The transformation:**
+
+- **Before:** Paralyzed by "which framework?" decisions. Copy-pasting code you don't understand.
+- **After:** A curated, production-ready setup. Learn by building real things, not configuring tools.
+
+**The feeling:** Confidence. You're learning patterns that actually work.
+
+---
+
+---
+
+## �️ Getting Started (It's Easier Than You Think)
+
+### What You'll Need
+
+Think of these as the basic tools in your toolkit:
 
 ```bash
-# Issue: Python version mismatch
-# Solution: Use pyenv to manage Python versions
+# The essentials (5 minutes to install)
+Python 3.12+         # The foundation (use pyenv for easy management)
+Node.js 24+          # The engine (Volta makes this painless)
+cookiecutter         # The template wizard (one command: uv tool install cookiecutter)
+direnv              # The environment keeper (makes life so much easier)
+
+# Nice to have
+just                # Your command shortcut buddy
+git                 # For version control (you probably have this)
+```
+
+**New to these tools?** No worries. Each one has a simple installer, and you'll only interact with them through friendly commands.
+
+### Your First Project (5 Minutes)
+
+#### Minute 1: Create
+
+```bash
+cookiecutter https://github.com/SPRIME01/VibePDK.git
+```
+
+You'll answer four questions:
+
+- What's your project called? (e.g., "my-awesome-app")
+- Who's building it? (your name)
+- Which Python version? (3.12 is great)
+- What does it do? (one sentence is enough)
+
+#### Minute 2: Enter
+
+```bash
+cd my-awesome-app
+direnv allow  # Trust me, this is magic
+```
+
+#### Minutes 3-4: Setup
+
+```bash
+# If using Volta (recommended)
+volta pin node@24 pnpm@latest
+corepack enable && corepack prepare pnpm@latest --activate
+
+# Install everything
+pnpm install
+```
+
+#### Minute 5: Validate
+
+```bash
+just test  # Watch everything pass ✅
+```
+
+**You're done.** You now have a production-ready foundation. Time to build something amazing.
+
+---
+
+## 🎯 Common Workflows (From Your Perspective)
+
+### 🏗️ "I want to design my system architecture first"
+
+```bash
+# 1. Sketch your architecture (think about your system)
+edit architecture/calm/system.calm.json
+
+# 2. Let it come to life
+just gen-calm           # Generates your domain model
+
+# 3. Make sure it makes sense
+just calm-validate      # Checks for architectural issues
+
+# 4. Build from your blueprint
+just nx-generate        # Creates services that match your design
+```
+
+**What this feels like:** You're an architect with a magic wand. Draw the blueprint, wave the wand, watch your building materialize.
+
+### 🤖 "I want AI to help me code, consistently"
+
+```bash
+# 1. Explore what's possible
+ls .github/prompts/     # See battle-tested prompt templates
+
+# 2. Make sure they're solid
+just prompt:lint        # Validates your prompts
+
+# 3. Use them in your editor
+# Open VS Code → GitHub Copilot Chat → Ask questions
+# Your AI now understands your project structure!
+
+# 4. Generate with confidence
+just ai:scaffold type=api name=users  # AI creates code that fits
+```
+
+**What this feels like:** You have a senior developer pair programming with you—one who never gets tired and always remembers your project's conventions.
+
+### 🔄 "I want to build features the right way"
+
+```bash
+# 1. Start with clarity
+just spec:feature name=user-authentication
+
+# 2. Plan the implementation
+just spec:plan feature=user-authentication
+
+# 3. Break it into bite-sized pieces
+just spec:tasks feature=user-authentication
+
+# 4. Build with test-driven confidence
+just tdd:cycle feature=user-authentication
+```
+
+**What this feels like:** You're following a recipe from a master chef. Each step is clear. You know you're on the right path.
+
+---
+
+## 🌟 The Tools That Make It All Work
+
+You don't need to understand all the internals, but here's what's working for you behind the scenes:
+
+### 🐍 Python Power
+
+- **FastAPI**: Lightning-fast web APIs (feels like magic)
+- **Pydantic**: Data validation that actually makes sense
+- **uv**: Package management without the headaches
+- **pytest**: Testing that gives you confidence
+
+### � Node.js Orchestration
+
+- **Nx**: The brain that coordinates everything
+- **pnpm**: Package management done right
+- **TypeScript**: JavaScript with guardrails
+- **Jest**: Testing for your Node code
+
+### 🏗️ Architecture Tools
+
+- **FINOS CALM**: Your architectural guardrails
+- **Cookiecutter**: The project generator
+- **Justfile**: One command for anything
+- **Direnv**: Environments that just work
+
+### 🤖 AI Enhancement
+
+- **GitHub Copilot**: Your AI pair programmer
+- **Prompt System**: Consistent, versioned AI interactions
+- **Model Context Protocol**: Deep project understanding
+
+**The best part?** These tools work together seamlessly. You don't manage them—you just use them.
+
+---
+
+## 🚨 When Things Don't Go As Planned
+
+We've all been there. Something doesn't work, and you need a quick fix. Here are the most common hiccups and their solutions:
+
+### 🐍 Python Environment Issues
+
+#### Python version mismatch or uv not found
+
+```bash
+# Get the right Python version
 pyenv install 3.12.11
 pyenv local 3.12.11
 
-# Issue: uv not found
-# Solution: Install uv package manager
+# Install uv if missing
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Issue: Dependencies not installing
-# Solution: Clear cache and reinstall
+# Fresh start with dependencies
 uv cache clean
 uv pip install -r requirements.txt
 ```
 
-</details>
+**Why this happens:** Different projects need different Python versions. pyenv and uv make switching painless.
 
-<details>
-<summary>🟨 <strong>Node.js & pnpm Issues</strong></summary>
+### 🟨 Node.js & pnpm Issues
+
+#### pnpm not found or command not found
 
 ```bash
-# Issue: pnpm not found
-# Solution: Enable corepack
+# Enable pnpm (the right way)
 corepack enable
 corepack prepare pnpm@latest --activate
 
-# Issue: Node version mismatch
-# Solution: Use Volta for version management
+# If using Volta (even better)
 volta install node@24
 volta pin node@24
+```
 
-# Issue: Nx cache corruption
-# Solution: Clear Nx cache
+#### Nx cache is broken or weird build errors
+
+```bash
+# Reset everything
 pnpm exec nx reset
 ```
 
-</details>
+**Why this happens:** Node.js has evolved a lot. Using modern tools like Volta and Corepack keeps you on the happy path.
 
-<details>
-<summary>🧭 <strong>CALM Validation Errors</strong></summary>
+### 🧭 CALM Validation Errors
+
+#### CALM schema validation failed
 
 ```bash
-# Issue: CALM schema validation failed
-# Solution: Check schema format
+# See what's wrong (with details)
 just calm:validate --verbose
 
-# Issue: Missing architecture files
-# Solution: Generate from template
+# Start fresh from template
 just calm:init
 
-# Issue: Circular dependencies detected
-# Solution: Review architecture graph
-just calm:graph
+# Visualize dependencies
+just calm:graph  # Sometimes seeing it helps
 ```
 
-</details>
+**Why this happens:** Architecture definitions need to follow certain rules. The validator helps you catch issues early.
 
-<details>
-<summary>🤖 <strong>AI Workflow Issues</strong></summary>
+### 🤖 AI Workflow Issues
+
+#### Prompts failing validation
 
 ```bash
-# Issue: Prompts failing validation
-# Solution: Run linter and fix issues
+# Auto-fix common issues
 just prompt:lint --fix
+```
 
-# Issue: Context not loading in Copilot
-# Solution: Reload VS Code window
-# Command Palette → "Developer: Reload Window"
+#### GitHub Copilot doesn't understand my project
 
-# Issue: MCP server not connecting
-# Solution: Check server configuration
+```bash
+# Reload VS Code
+# Command Palette (Ctrl/Cmd + Shift + P) → "Developer: Reload Window"
+```
+
+#### MCP server not connecting
+
+```bash
+# Check your configuration
 cat .vscode/mcp.json
 ```
 
-</details>
+**Why this happens:** AI tools need proper configuration to understand your project context. Once set up, they work beautifully.
 
-## 🤝 Contributing
+---
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+## 🤝 Join the Journey
 
-### Development Setup
+VibePDK is built by developers, for developers. Your experience matters.
+
+### 💡 Share Your Experience
+
+- **Found a rough edge?** Open an issue—we want to know.
+- **Built something cool?** Share it with the community.
+- **Have an idea?** Start a discussion.
+
+### 🛠️ Contribute
 
 ```bash
+# Get set up
 git clone https://github.com/SPRIME01/VibePDK.git
 cd VibePDK
 uv sync --dev
 pre-commit install
-```
 
-### Running Tests
+# Make your changes
+# ...
 
-```bash
-# Run all tests
+# Verify everything works
 uv run pytest
-
-# Test template generation
-uv run pytest tests/test_cookiecutter_generation.py
-
-# Test specific components
-uv run pytest tests/test_pre_gen_project.py -v
 ```
 
-## 📄 License
+**We welcome:**
 
-This project is licensed under the [Mozilla Public License 2.0](LICENSE) - see the LICENSE file for details.
+- Documentation improvements (especially more examples!)
+- New generator templates
+- Better error messages
+- Prompt templates for common tasks
 
-## 🙏 Acknowledgments
-
-- **[FINOS CALM](https://github.com/finos/architecture-as-code)** - Architecture-as-code specification
-- **[Nx](https://nx.dev/)** - Monorepo orchestration platform
-- **[Cookiecutter](https://github.com/audreyr/cookiecutter)** - Project templating system
-- **[@nxlv/python](https://www.npmjs.com/package/@nxlv/python)** - Python workspace integration
-- **[GitHub Copilot](https://github.com/features/copilot)** - AI pair programming
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
-<div align="center">
+## 📄 License & Acknowledgments
 
-**[⭐ Star this repo](https://github.com/SPRIME01/VibePDK) if VibePDK helps accelerate your development!**
+### License
+
+VibePDK is licensed under the [Mozilla Public License 2.0](LICENSE)—free to use, share, and modify.
+
+### Built on the Shoulders of Giants
+
+This project wouldn't exist without:
+
+- **[FINOS CALM](https://github.com/finos/architecture-as-code)** - For bringing architecture-as-code to life
+- **[Nx](https://nx.dev/)** - For making monorepos actually manageable
+- **[Cookiecutter](https://github.com/audreyr/cookiecutter)** - For elegant project templating
+- **[@nxlv/python](https://www.npmjs.com/package/@nxlv/python)** - For bridging Python and Nx
+- **[GitHub Copilot](https://github.com/features/copilot)** - For showing us the future of coding
+
+And to every developer who's wrestled with project setup and thought, *"There has to be a better way."*
+
+---
+
+**[⭐ Star this repo](https://github.com/SPRIME01/VibePDK)** if VibePDK saves you time and sanity!
 
 [![GitHub stars](https://img.shields.io/github/stars/SPRIME01/VibePDK?style=social)](https://github.com/SPRIME01/VibePDK/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/SPRIME01/VibePDK?style=social)](https://github.com/SPRIME01/VibePDK/network/members)
 
-</div>
+*Built with ❤️ for developers who want to spend less time configuring and more time creating.*
