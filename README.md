@@ -2,8 +2,10 @@
 
 [![CI](https://github.com/GodSpeedAI/VibePDK/actions/workflows/ci.yml/badge.svg)](https://github.com/GodSpeedAI/VibePDK/actions/workflows/ci.yml)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
-[![Node Tests](https://github.com/GodSpeedAI/VibePDK/actions/workflows/node-tests.yml/badge.svg)](https://github.com/GodSpeedAI/VibePDK/actions/workflows/node-tests.yml)
-[![Cookiecutter Template](https://img.shields.io/badge/cookiecutter-template-blue.svg)](https://github.com/audreyr/cookiecutter)
+[![CodeQL](https://github.com/GodSpeedAI/VibePDK/actions/workflows/codeql.yml/badge.svg)](https://github.com/GodSpeedAI/VibePDK/actions/workflows/codeql.yml)
+[![Cookiecutter Template](https://img.shields.io/badge/cookiecutter-template-blue.svg)](https://github.com/cookiecutter/cookiecutter)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Node.js 24+](https://img.shields.io/badge/node.js-24+-green.svg)](https://nodejs.org/)
 
 ---
 
@@ -106,7 +108,7 @@ Imagine your whole team having access to the same expert advisor—one that reme
 **Step 1: Dream It** (30 seconds)
 
 ```bash
-cookiecutter https://github.com/SPRIME01/VibePDK.git
+cookiecutter https://github.com/GodSpeedAI/VibePDK.git
 # Answer 4 simple questions about your project
 ```
 
@@ -270,7 +272,7 @@ git                 # For version control (you probably have this)
 #### Minute 1: Create
 
 ```bash
-cookiecutter https://github.com/SPRIME01/VibePDK.git
+cookiecutter https://github.com/GodSpeedAI/VibePDK.git
 ```
 
 You'll answer four questions:
@@ -506,7 +508,7 @@ VibePDK is built by developers, for developers. Your experience matters.
 
 ```bash
 # Get set up
-git clone https://github.com/SPRIME01/VibePDK.git
+git clone https://github.com/GodSpeedAI/VibePDK.git
 cd VibePDK
 uv sync --dev
 pre-commit install
@@ -552,7 +554,7 @@ It's the same with VibePDK:
 VibePDK is released under a **dual license**:
 
 - 🧩 **MPL-2.0 (Open Source)** — for personal, educational, and internal company use. See the [LICENSE](LICENSE) file for details.
-- 💼 **Commercial License** — required if you want to embed, resell, or offer VibePDK as a hosted service. [Contact us](https://github.com/SPRIME01/VibePDK/discussions) for details.
+- 💼 **Commercial License** — required if you want to embed, resell, or offer VibePDK as a hosted service. [Contact us](https://github.com/GodSpeedAI/VibePDK/discussions) for details.
 
 ### Built on the Shoulders of Giants
 
@@ -568,9 +570,9 @@ And to every developer who's wrestled with project setup and thought, *"There ha
 
 ---
 
-**[⭐ Star this repo](https://github.com/SPRIME01/VibePDK)** if VibePDK saves you time and sanity!
+**[⭐ Star this repo](https://github.com/GodSpeedAI/VibePDK)** if VibePDK saves you time and sanity!
 
-[![GitHub stars](https://img.shields.io/github/stars/SPRIME01/VibePDK?style=social)](https://github.com/SPRIME01/VibePDK/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/SPRIME01/VibePDK?style=social)](https://github.com/SPRIME01/VibePDK/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/GodSpeedAI/VibePDK?style=social)](https://github.com/GodSpeedAI/VibePDK/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/GodSpeedAI/VibePDK?style=social)](https://github.com/GodSpeedAI/VibePDK/network/members)
 
 *Built with ❤️ for developers who want to spend less time configuring and more time creating.*
