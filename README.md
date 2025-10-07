@@ -1,6 +1,6 @@
 # 🚀 VibePDK
 
-[![CI](https://github.com/GodSpeedAI/VibePDK/actions/workflows/ci.yml/badge.svg)](https://github.com/GodSpeedAI/VibePDK/actions/workflows/ci.yml)
+[![CI](https://github.com/GodSpeedAI/VibePDK/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/GodSpeedAI/VibePDK/actions/workflows/ci.yml)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 [![CodeQL](https://github.com/GodSpeedAI/VibePDK/actions/workflows/codeql.yml/badge.svg)](https://github.com/GodSpeedAI/VibePDK/actions/workflows/codeql.yml)
 [![Cookiecutter Template](https://img.shields.io/badge/cookiecutter-template-blue.svg)](https://github.com/cookiecutter/cookiecutter)
