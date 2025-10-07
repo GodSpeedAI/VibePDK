@@ -25,3 +25,6 @@ Refs: devkit/PRD.md
 
 ## PRD-017 — Lean token budget
 Refs: devkit/PRD.md
+
+## REL-TS-001 — VibePDK 0.1.0 release alignment
+Refs: docs/specs/release-0-1-0/spec.md

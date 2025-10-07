@@ -19,3 +19,6 @@ Refs: docs/dev_prd.md
 
 ## DEV-PRD-010 — Evaluation hooks & budgets
 Refs: docs/dev_prd.md
+
+## REL-TS-001 — VibePDK 0.1.0 release alignment
+Refs: docs/specs/release-0-1-0/spec.md
